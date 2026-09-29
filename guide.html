@@ -1,0 +1,809 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Схватка на драконьем острове — гайд</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root{
+  --bg:#0d0f14;--bg2:#141822;--card:#1a1f2b;--card2:#202636;--line:#2b3244;
+  --text:#e8ecf4;--muted:#9aa4b8;--accent:#ff6a3d;--accent2:#ffb347;
+  --red:#ff5a5a;--blue:#4fa3ff;--green:#3ddc97;--gold:#ffd166;--purple:#b48cff;
+  --radius:16px;--shadow:0 10px 30px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2)}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px 80px}
+.top{position:sticky;top:0;z-index:20;background:rgba(13,15,20,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top .in{max-width:900px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px}
+.brand{font-weight:800;letter-spacing:.3px}
+.brand small{color:var(--muted);font-weight:500}
+.hero{margin:18px 0 8px;border-radius:24px;overflow:hidden;background:
+  radial-gradient(1200px 400px at 20% -10%,rgba(255,106,61,.35),transparent 60%),
+  radial-gradient(800px 400px at 100% 100%,rgba(79,163,255,.25),transparent 60%),var(--bg2);border:1px solid var(--line);box-shadow:var(--shadow);padding:26px 24px}
+.hero h1{margin:0 0 6px;font-size:30px;line-height:1.15;font-weight:900}
+.hero h1 span{background:linear-gradient(90deg,var(--accent),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{margin:0;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:12px;font-weight:700;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04)}
+.chip.red{border-color:rgba(255,90,90,.5);color:#ffb3b3}.chip.blue{border-color:rgba(79,163,255,.5);color:#b9dbff}
+.chip.gold{border-color:rgba(255,209,102,.5);color:var(--gold)}.chip.green{border-color:rgba(61,220,151,.5);color:#b8f5dd}
+.toc{display:flex;gap:8px;overflow-x:auto;padding:10px 0 4px;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc a{white-space:nowrap;text-decoration:none;color:var(--text);background:var(--card);border:1px solid var(--line);padding:8px 12px;border-radius:12px;font-size:13px;font-weight:600}
+section{margin-top:28px;scroll-margin-top:60px}
+h2{font-size:22px;margin:0 0 4px;display:flex;align-items:center;gap:10px}
+h2 .n{flex:0 0 30px;width:30px;height:30px;border-radius:10px;display:inline-grid;place-items:center;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#111}
+.lead{color:var(--muted);margin:0 0 14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.card+.card{margin-top:12px}
+.two>.card{margin-top:0}
+.card h3{margin:0 0 6px;font-size:16px}
+.card p{margin:6px 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+ul,ol{margin:6px 0 0 20px;padding:0}li{margin:5px 0}
+.tag{display:inline-block;font-size:11px;font-weight:800;padding:2px 8px;border-radius:6px;margin-right:4px;vertical-align:middle;white-space:nowrap}
+.tag.game{background:rgba(61,220,151,.18);color:#8ff0c8}
+.tag.patch{background:rgba(79,163,255,.18);color:#9fcbff}
+.tag.video{background:rgba(180,140,255,.18);color:#d3bdff}
+.tag.player{background:rgba(255,90,90,.18);color:#ff9b9b}
+.tag.guess{background:rgba(255,209,102,.18);color:var(--gold)}
+table{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+td.num,th.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.tbl{overflow-x:auto}
+.timeline{position:relative;padding-left:26px}
+.timeline:before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--accent),var(--blue))}
+.step{position:relative;margin-bottom:14px}
+.step:before{content:"";position:absolute;left:-23px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--accent2);box-shadow:0 0 0 4px rgba(255,179,71,.2)}
+.step b{display:block}
+.step .t{color:var(--gold);font-weight:800;font-variant-numeric:tabular-nums}
+.note{border-left:3px solid var(--accent2);background:rgba(255,179,71,.08);padding:10px 14px;border-radius:0 12px 12px 0;margin:12px 0}
+.note.red{border-color:var(--red);background:rgba(255,90,90,.08)}
+.note.green{border-color:var(--green);background:rgba(61,220,151,.08)}
+.note.blue{border-color:var(--blue);background:rgba(79,163,255,.08)}
+.big{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.big div{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center}
+.big b{display:block;font-size:22px;color:var(--gold);line-height:1.2}
+.big span{font-size:12px;color:var(--muted)}
+/* схема зоны */
+.zone{position:relative;height:260px;border-radius:14px;background:#16301f;border:1px solid var(--line);overflow:hidden;margin:10px 0}
+.zone .gray{position:absolute;left:50%;top:50%;width:150px;height:150px;transform:translate(-50%,-50%) rotate(45deg);background:rgba(150,156,170,.45);border:2px dashed #cfd5e2}
+.zone .center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--blue);color:#06121f;font-weight:900;font-size:12px;padding:6px 8px;border-radius:8px;text-align:center;line-height:1.2}
+.zone .lbl{position:absolute;font-size:12px;font-weight:700;padding:3px 7px;border-radius:6px;background:rgba(0,0,0,.55)}
+.legend{font-size:13px;color:var(--muted)}
+.src li{font-size:13px;color:var(--muted);word-break:break-word}
+.check li{list-style:none;margin-left:-20px;padding-left:26px;position:relative}
+.check li:before{content:"☐";position:absolute;left:4px;color:var(--accent2)}
+details.ref{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin-top:10px;overflow:hidden}
+details.ref>summary{cursor:pointer;padding:14px 16px;font-weight:800;font-size:16px;list-style:none;display:flex;align-items:center;gap:10px}
+details.ref>summary::-webkit-details-marker{display:none}
+details.ref>summary:after{content:"＋";margin-left:auto;color:var(--accent2);font-weight:900}
+details.ref[open]>summary:after{content:"－"}
+details.ref>.in{padding:0 14px 16px}
+details.ref .card{box-shadow:none;background:var(--card2)}
+.part{margin-top:34px;padding-top:6px;border-top:2px solid var(--line)}
+.part>h2{font-size:24px;margin-top:18px}
+.part>h2 .n{width:auto;flex:0 0 auto;padding:0 10px}
+.me{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.me .card{margin-top:0}
+.me h3{font-size:17px}
+.me .who{display:block;color:var(--muted);font-size:13px;margin-bottom:6px}
+.dont li{list-style:none;margin-left:-20px;padding-left:26px;position:relative}
+.dont li:before{content:"✕";position:absolute;left:4px;color:var(--red);font-weight:900}
+.do li{list-style:none;margin-left:-20px;padding-left:26px;position:relative}
+.do li:before{content:"✓";position:absolute;left:4px;color:var(--green);font-weight:900}
+dl.gl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 14px}
+dl.gl dt{font-weight:800;color:var(--gold)}
+dl.gl dd{margin:0}
+@media(max-width:640px){
+  .me{grid-template-columns:1fr}dl.gl{grid-template-columns:1fr;gap:2px}dl.gl dd{margin-bottom:8px}
+  .two{grid-template-columns:1fr}.big{grid-template-columns:repeat(2,1fr)}
+  .hero{padding:20px 16px}.hero h1{font-size:24px}h2{font-size:19px}
+}
+</style>
+</head>
+<body>
+<div class="top"><div class="in"><div class="brand">🐉 Драконий остров <small>· полный гайд [RED] ARMY</small></div></div></div>
+<div class="wrap">
+
+<div class="hero">
+  <h1>Схватка на <span>драконьем острове</span></h1>
+  <p>Мы защищаем свой Центр союза от союза из другого штата. Продержались 30 минут — победили. Не продержались — у нас заберут часть очков сезона.</p>
+  <div class="chips">
+    <span class="chip red">Среда 30.09 · сбор в 21:30 МСК</span>
+    <span class="chip blue">Бой 22:00 — 22:30</span>
+    <span class="chip gold">Мы защищаемся</span>
+  </div>
+</div>
+
+<div class="card" style="margin-top:14px"><b>Нужна только короткая памятка?</b> Она на отдельной странице, её удобно кидать в чат союза: <a href="./" style="font-weight:800">🗒 Памятка бойца</a></div>
+
+<div class="toc">
+  <a href="#a">Памятка бойца</a><a href="#a4">Что делать по минутам</a><a href="#a5">Моя роль</a>
+  <a href="#b">Если атакуем</a><a href="#c">Офицерам</a><a href="#d">Справочник</a>
+</div>
+
+<!-- ============ A. ПАМЯТКА БОЙЦА ============ -->
+<div class="part" id="a"><h2><span class="n">Памятка бойца</span></h2>
+<p class="lead">Всё, что нужно знать рядовому участнику. Читается за 3 минуты.</p></div>
+
+<section id="a1"><h2>Что это за событие</h2>
+<div class="card">
+<p>Игра свела нас с союзом из другого штата. В этот раз <b>мы защищаемся, они нападают</b>.</p>
+<p>Они прилетят в наш штат к нашему Центру союза и будут его ломать. У Центра есть <b>прочность — 10 000</b>. Наша задача: чтобы за 30 минут боя она не упала до нуля.</p>
+<p>Центр защищают наши войска, которые стоят внутри него. Пока они там есть, Центр цел. Выбили всех разом — прочность падает.</p>
+<p><b>Проиграем — у союза заберут 7 690 очков сезона</b> из 38 490. От этих очков зависит место союза и награды в конце сезона для каждого из нас.</p>
+</div>
+<div class="note red"><b>Войска гибнут по-настоящему.</b> Это не тренировка. Кто пойдёт в бой с полным госпиталем, потеряет войска навсегда.</div>
+</section>
+
+<section id="a2"><h2>Словарик</h2>
+<div class="card"><dl class="gl">
+  <dt>Центр союза</dt><dd>Здание союза на карте. Его мы защищаем. Наш стоит на X:1005, Y:766.</dd>
+  <dt>Прочность</dt><dd>«Здоровье» Центра, 10 000. Дошла до 0 — мы проиграли, бой сразу заканчивается.</dd>
+  <dt>Гарнизон</dt><dd>Наши отряды внутри Центра. Мест 20, от каждого игрока один отряд.</dd>
+  <dt>Зона обстрела</dt><dd>Квадрат вокруг Центра. В начале события всех оттуда выбрасывает, через 10 минут туда снова можно сесть.</dd>
+  <dt>Телепорт</dt><dd>Перемещение поселения на другое место карты. Тратит предмет «перемещение».</dd>
+  <dt>Сжечь</dt><dd>Атаковать поселение, пока его защита не упадёт до нуля. Сожжённое поселение выбрасывает из зоны.</dd>
+  <dt>Подкрепление</dt><dd>Отправить свой отряд стоять в поселении товарища, чтобы помочь ему отбиться.</dd>
+  <dt>Ралли</dt><dd>Общая атака: один собирает, остальные присоединяются отрядами. Бьёт сильнее одиночных атак.</dd>
+</dl></div>
+</section>
+
+<section id="a3"><h2>Что подготовить заранее</h2>
+<p class="lead">Сделать в среду днём, до 21:00.</p>
+<div class="card"><ul class="check">
+  <li><b>Вылечить всех.</b> Госпиталь должен быть пустым к началу.</li>
+  <li><b>Собрать полные отряды.</b> Натренировать войска, поставить лучших героев.</li>
+  <li><b>Запастись телепортами.</b> Нужно минимум 2–3 штуки.</li>
+  <li><b>Накопить ресурсы на лечение</b>, особенно уголь. Лечиться придётся много.</li>
+  <li><b>Приготовить ускорители лечения.</b> В бою ждать некогда.</li>
+  <li><b>Потратить или спрятать лишние ресурсы.</b> При атаке на поселение их грабят.</li>
+  <li><b>Не можешь прийти — включи щит заранее</b> и не стой рядом с Центром. Возле Центра щит во время события не включается.</li>
+</ul></div>
+<div class="note">Если ты в союзе меньше 48 часов, игра не пустит тебя в бой. Это правило события, обойти его нельзя.</div>
+</section>
+
+<section id="a4"><h2>Что делать по минутам</h2>
+<p class="lead">Время московское. Команды офицеров в чате союза важнее этой памятки.</p>
+<div class="card"><div class="timeline">
+  <div class="step"><span class="t">21:25</span><b>Зайди в игру</b>Открой чат союза. Проверь, что госпиталь пуст и отряды полные.</div>
+  <div class="step"><span class="t">21:30 · началась подготовка</span><b>Не пугайся: тебя выбросит</b>Если твоё поселение стояло рядом с Центром, игра сама перенесёт его в другое место. Урона не будет. Следующие 10 минут сесть возле Центра нельзя — не трать телепорты.</div>
+  <div class="step"><span class="t">21:40 · зона открылась</span><b>Телепортируйся к Центру</b>Садись так близко к Центру, как получится. Сильные игроки занимают клетки вплотную к Центру, остальные — вокруг них. <b>Между своим поселением и соседним оставляй зазор в 1 клетку</b>, не больше. Враг в такую щель сесть не сможет, а мы закроем больше места.</div>
+  <div class="step"><span class="t">21:40 — 22:00</span><b>Держи позицию</b>Враг тоже прилетит и начнёт нападать на поселения. Если рядом сел враг слабее тебя — сожги его, его выбросит. Если напали на соседа — отправь ему подкрепление. Сам на сильных не лезь.</div>
+  <div class="step"><span class="t">21:58</span><b>Включи усиления</b>Усиления атаки и защиты войск. Навык союза включат офицеры.</div>
+  <div class="step"><span class="t">22:00 · начался бой</span><b>Отряд в Центр</b>Нажми на Центр союза → «Гарнизон» → отправь свой самый сильный отряд. Мест 20. Не попал — не страшно, попадёшь, когда место освободится.</div>
+  <div class="step"><span class="t">22:00 — 22:30</span><b>Круг: стоишь → лечишься → возвращаешься</b>Твой отряд выбили или от него осталась треть — лечи войска ускорителями, добирай отряд до полного и отправляй снова. И так до конца.</div>
+  <div class="step"><span class="t">22:30</span><b>Конец</b>Забери сундуки на вкладке «Отчёты» в событии. Вылечи оставшихся.</div>
+</div></div>
+<div class="note green"><b>Главное правило.</b> Центр не должен пустовать ни секунды. Лучше десять средних отрядов внутри, чем ноль в ожидании одного сильного.</div>
+</section>
+
+<div class="card" style="margin-top:12px"><h3>Как расставляться вокруг Центра</h3>
+<div class="zone" style="height:230px">
+  <div class="center" style="background:var(--blue)">ЦЕНТР</div>
+  <div class="lbl" style="left:50%;top:22%;transform:translateX(-50%);color:#8ff0c8">наш</div>
+  <div class="lbl" style="left:50%;top:70%;transform:translateX(-50%);color:#8ff0c8">наш</div>
+  <div class="lbl" style="left:32%;top:46%;transform:translateX(-50%);color:#8ff0c8">наш</div>
+  <div class="lbl" style="left:68%;top:46%;transform:translateX(-50%);color:#8ff0c8">наш</div>
+  <div class="lbl" style="left:14%;top:46%;transform:translateX(-50%);color:#8ff0c8">наш</div>
+  <div class="lbl" style="left:86%;top:46%;transform:translateX(-50%);color:#8ff0c8">наш</div>
+  <div class="lbl" style="left:32%;top:14%;transform:translateX(-50%);color:#8ff0c8">наш</div>
+  <div class="lbl" style="left:68%;top:14%;transform:translateX(-50%);color:#8ff0c8">наш</div>
+  <div class="lbl" style="left:32%;top:80%;transform:translateX(-50%);color:#8ff0c8">наш</div>
+  <div class="lbl" style="left:68%;top:80%;transform:translateX(-50%);color:#8ff0c8">наш</div>
+  <div class="lbl" style="right:8px;bottom:8px;color:#ff9b9b">враг садится только снаружи</div>
+</div>
+<ul>
+  <li><b>Зазор в 1 клетку</b> между нашими поселениями. Поселение занимает больше одной клетки, поэтому в такую щель враг не влезет.</li>
+  <li><b>Не вплотную друг к другу:</b> так мы теми же силами закрываем больше места вокруг Центра.</li>
+  <li><b>Не шире одной клетки:</b> в дыру в две клетки и больше враг сядет прямо среди нас.</li>
+  <li>Если видишь такую дыру рядом — напиши в чат союза или сам пересядь так, чтобы её закрыть.</li>
+</ul>
+<p class="legend">Совет «оставлять зазор в 1 клетку» дали игроки, которые уже защищались. Почему он работает, они не объясняют; объяснение выше — наше. Схема условная.</p></div>
+
+<section id="a5"><h2>Моя роль: зависит от силы</h2>
+<p class="lead">Найди себя и делай своё. Офицеры могут назначить иначе.</p>
+<div class="me">
+<div class="card"><h3>💪 Сильный</h3><span class="who">Примерно первые 20 по мощи в союзе</span><ul>
+  <li>Сидишь вплотную к Центру.</li>
+  <li>Твой главный отряд — в гарнизоне с первой секунды боя.</li>
+  <li>Остальными отрядами жжёшь врагов, севших рядом.</li>
+  <li>Выбили — лечишься и сразу назад.</li>
+</ul></div>
+<div class="card"><h3>🛡 Средний</h3><span class="who">Следующие по силе</span><ul>
+  <li>Сидишь во втором ряду от Центра.</li>
+  <li>Ты — замена: заходишь в гарнизон, как только освободилось место.</li>
+  <li>Держишь отряд в поселении сильного соседа как подкрепление.</li>
+  <li>Жжёшь только тех, кто слабее тебя.</li>
+</ul></div>
+<div class="card"><h3>🌱 Слабый</h3><span class="who">Небольшая мощь, мало войск</span><ul>
+  <li>Занимаешь клетку в зоне, чтобы её не занял враг.</li>
+  <li>Войска отправляешь подкреплением к сильному соседу.</li>
+  <li>Сам ни на кого не нападаешь.</li>
+  <li>Когда враг выдохнется — заходи в гарнизон, там идут очки.</li>
+</ul></div>
+</div>
+<div class="note"><b>Если у нашего Центра есть башни.</b> У некоторых союзов рядом с Центром стоят ещё 3 башни, и защищать надо все четыре здания. Есть ли они у нас, офицеры проверят и скажут, кто идёт в Центр, а кто в башни. Правило то же: один твой отряд в одно здание.</div>
+</section>
+
+<section id="a6"><h2>Делай и не делай</h2>
+<div class="two">
+<div class="card"><h3>Делай</h3><ul class="do">
+  <li>Приходи к 21:25, а не к 22:00.</li>
+  <li>Отправляй в гарнизон только полный отряд.</li>
+  <li>Можно послать в Центр сразу несколько отрядов: встанет первый дошедший, остальные сами вернутся.</li>
+  <li>Следи за госпиталем: заполнился — лечи, потом в бой.</li>
+  <li>Оставляй между своим поселением и соседним зазор в 1 клетку.</li>
+  <li>Помогай соседям подкреплением.</li>
+  <li>Читай чат союза и слушай офицеров.</li>
+</ul></div>
+<div class="card"><h3>Не делай</h3><ul class="dont">
+  <li>Не иди в бой с полным госпиталем — лишние раненые погибнут.</li>
+  <li>Не нападай в одиночку на тех, кто сильнее.</li>
+  <li>Не рассчитывай на щит возле Центра — он там не включится.</li>
+  <li>Не трать телепорты до 21:40.</li>
+  <li>Не уходи с позиции гоняться за врагом по карте.</li>
+  <li>Не оставляй рядом с собой дыру в 2 клетки и больше — туда сядет враг.</li>
+  <li>Не жги ускорители «ради очков» — только на настоящее лечение.</li>
+</ul></div>
+</div>
+</section>
+
+<section id="a7"><h2>Что я получу</h2>
+<div class="card">
+<p><b>Личные сундуки.</b> За бой ты набираешь личные очки и открываешь сундуки. Первые три — на 5, 10 и 15 миллионов очков, всего сундуков девять.</p>
+<div class="tbl"><table>
+<tr><th>За что дают очки</th><th class="num">Сколько</th></tr>
+<tr><td>Твой отряд стоит в гарнизоне, за каждую минуту</td><td class="num">600 000</td></tr>
+<tr><td>Убил врага в здании союза</td><td class="num">110 за бойца</td></tr>
+<tr><td>Убил врага в поле</td><td class="num">66 за бойца</td></tr>
+<tr><td>Твои раненые и погибшие</td><td class="num">44–66 за бойца</td></tr>
+<tr><td>Минута ускорителей лечения или обучения</td><td class="num">240</td></tr>
+</table></div>
+<p class="legend">Цифры за бойцов — для войск 10-го уровня. Строку про гарнизон мы понимаем как «600 000 в минуту», но игра формулирует её нечётко, проверим в бою.</p>
+<p><b>Проще всего набрать очки в гарнизоне:</b> 9 минут — это первый сундук, 17 минут — второй, 25 — третий. Сильные бойцы набирают ещё больше на убийствах.</p>
+<p><b>Награда союзу.</b> Победим — сохраним все очки сезона. Проиграем — потеряем 7 690. В событии есть ещё «Награда за победу», но дают ли её защитнику, узнаем после боя.</p>
+</div>
+</section>
+
+<div class="note blue" style="margin-top:18px"><b>Откуда эта тактика.</b> Она собрана из правил игры и опыта союзов, которые уже отыграли событие. Сами мы его ещё не играли. После первого боя памятку поправим по тому, что увидим.</div>
+
+<!-- ============ B. ЕСЛИ АТАКУЕМ ============ -->
+<div class="part" id="b"><h2><span class="n">Если мы атакуем</span></h2>
+<p class="lead">Роли чередуются. Следующий раунд, скорее всего 7 октября, мы будем нападать. Роль видна в событии на вкладке «Обзор».</p></div>
+
+<section id="b1"><h2>Памятка бойца в атаке</h2>
+<div class="card"><div class="timeline">
+  <div class="step"><span class="t">Начало подготовки</span><b>Лети в штат соперника</b>Координаты его Центра союза показаны в событии. Сядь недалеко от серой зоны, но не в неё — первые 10 минут туда не пускает.</div>
+  <div class="step"><span class="t">10-я минута подготовки</span><b>Рывок к Центру</b>Зона открылась. Садись как можно ближе к Центру врага, раньше его защитников.</div>
+  <div class="step"><span class="t">До начала боя</span><b>Расчисти место</b>Сильные жгут поселения защитников рядом с Центром. Остальные держатся рядом и не лезут на сильных.</div>
+  <div class="step"><span class="t">Бой, 30 минут</span><b>Бей Центр вместе</b>Присоединяйся к ралли, которые собирают сильнейшие. Одиночные атаки на сильный гарнизон только губят войска.</div>
+  <div class="step"><span class="t">Весь бой</span><b>Лечись между заходами</b>Госпиталь заполнился — остановись и вылечись. Сил должно хватить на все 30 минут.</div>
+</div></div>
+<div class="two">
+<div class="card"><h3>Делай</h3><ul class="do">
+  <li>Ходи в ралли, а не поодиночке.</li>
+  <li>Бей все здания союза врага, какие есть.</li>
+  <li>Тебя сожгли и выбросили — возвращайся, прыгать можно раз в 2 минуты.</li>
+  <li>Оставь часть войск дома: щит возле чужого Центра не включить.</li>
+</ul></div>
+<div class="card"><h3>Не делай</h3><ul class="dont">
+  <li>Не трать войска в подготовке — Центр тогда бить нельзя.</li>
+  <li>Не атакуй с полным госпиталем.</li>
+  <li>Не выкладывайся за первые 10 минут боя.</li>
+</ul></div>
+</div>
+<p class="legend">В атаке очки дают за каждую снятую единицу прочности здания — 2 000 тому, кто её снял.</p>
+</section>
+
+<!-- ============ C. ОФИЦЕРАМ ============ -->
+<div class="part" id="c"><h2><span class="n">Офицерам</span></h2>
+<p class="lead">Организация боя. Метки показывают, откуда сведения: <span class="tag game">ИЗ ИГРЫ</span> экраны игры, <span class="tag patch">ПАТЧ</span> патчноуты, <span class="tag video">ВИДЕО</span> записи боёв, <span class="tag player">ИГРОК</span> слова игроков, <span class="tag guess">ВЫВОД</span> наше заключение.</p></div>
+
+<section id="c1"><h2>Что решить до боя</h2>
+<div class="card"><ul class="check">
+  <li><b>Есть ли у Центра башни.</b> Посмотреть на карте у X:1005, Y:766. Если есть три башни — оборону делить на четыре здания. <span class="tag player">ИГРОК</span></li>
+  <li><b>Где стоит Центр.</b> Лучше вплотную к городу: одна сторона закрыта. Переносить можно только до 21:30. <span class="tag video">ВИДЕО</span></li>
+  <li><b>Кто в гарнизоне.</b> Список из 20 сильнейших и очередь замены.</li>
+  <li><b>Кто координатор.</b> Один человек смотрит список гарнизона и командует заменами.</li>
+  <li><b>Кто не придёт.</b> Им — щит заранее и стоять вне зоны. Иначе их сожгут первыми. <span class="tag player">ИГРОК</span></li>
+  <li><b>Состав.</b> За 48 часов до боя никого не принимать: новичок в бой не попадёт. <span class="tag game">ИЗ ИГРЫ</span></li>
+  <li><b>Роль и время</b> сверены по вкладке «Обзор» в событии.</li>
+  <li><b>Навык союза</b> готов к включению в 21:58.</li>
+  <li><b>Объявление</b> в чате союза за сутки и за час, со ссылкой на памятку.</li>
+</ul></div>
+</section>
+<section id="c2"><h2>План защиты</h2>
+<p class="lead">Задача одна: чтобы в Центре всегда стояли живые войска все 30 минут.</p>
+<div class="card"><h3>По минутам</h3>
+<div class="timeline">
+  <div class="step"><span class="t">За день до боя</span><b>Поставить Центр правильно</b>R4/R5 проверяют, что Центр стоит, и смотрят, есть ли рядом башни. Игроки советуют унести Центр подальше от основной стоянки союза, а тем, кто не придёт, заранее включить щит. Лучшее место — вплотную к городу: одна сторона закрыта, врагу дольше идти в обход. <span class="tag video">ВИДЕО</span></div>
+  <div class="step"><span class="t">21:30 · начало подготовки</span><b>Обстрел</b>Всех выбросит из зоны, это нормально. Не тратьте телепорты, пока зона закрыта.</div>
+  <div class="step"><span class="t">21:40 · зона открылась</span><b>Занять ближние клетки</b>Сильнейшие садятся вплотную к Центру в первую же секунду. Остальные заполняют зону плотно, чтобы врагу было негде сесть. <span class="tag video">ВИДЕО</span></div>
+  <div class="step"><span class="t">21:40 — 22:00</span><b>Чистить зону</b>Врага, севшего рядом, сразу жечь: его выбросит. Подкреплять поселения соседей. Перед самым боем включить навыки союза и личные усиления.</div>
+  <div class="step"><span class="t">22:00 · бой</span><b>Гарнизон в Центр</b>20 сильнейших отправляют отряды в первую же секунду. Остальные держат свои поселения и подкрепляют соседей.</div>
+  <div class="step"><span class="t">22:00 — 22:30</span><b>Ротация</b>Офицер следит за списком гарнизона. У кого осталось мало войск — отослать домой лечиться, на его место сразу заходит следующий. За стояние в гарнизоне, по нашему прочтению таблицы, идут личные очки.</div>
+</div></div>
+<div class="card"><h3>Памятка дипломата союза [SEX] <span class="tag player">ИГРОК</span></h3>
+<p><b>Защита:</b></p><ul>
+  <li>Окружаем Центр союза поселениями, чтобы отряды противника дольше до него добирались.</li>
+  <li>Оставляем зазор в 1 клетку.</li>
+  <li>Центр без гарнизона получает урон напрямую, поэтому постоянно размещаем гарнизоны.</li>
+</ul>
+<p><b>Атака:</b></p><ul>
+  <li>Располагаемся как можно ближе к Центру противника.</li>
+  <li>Атакуем Центр.</li>
+</ul>
+<p class="legend">Это совпадает с тем, что показано в видео. Зазор автор видео тоже оставлял нарочно: враг видит свободное место и пытается сесть, но поселение туда не помещается. В Telegram игрок описывает ту же идею: расставляться «через клетку, чтобы соперники долго шли». <span class="tag guess">ВЫВОД</span> Смысл зазора: поселение занимает больше одной клетки, в щель врагу не сесть, а союз теми же силами закрывает большую площадь. Прямо это никто не объясняет.</p></div>
+<div class="two">
+<div class="card"><h3>Роли</h3><ul>
+  <li><b>Гарнизон (до 20):</b> самые сильные, стоят в Центре. Если есть башни — сильных делить между Центром и башнями, не собирать всех в одной точке.</li>
+  <li><b>Резерв:</b> следующие по силе, заходят на замену.</li>
+  <li><b>Чистильщики:</b> жгут врагов, севших в зоне.</li>
+  <li><b>Подкрепление:</b> слабые игроки шлют войска в поселения сильных соседей.</li>
+  <li><b>Координатор (R4/R5):</b> один человек ведёт список гарнизона и командует заменами.</li>
+</ul></div>
+<div class="card"><h3>Правила защитника</h3><ul>
+  <li>Прочность падает, когда одна атака выбивает весь гарнизон, а <b>пустой Центр получает урон напрямую</b> <span class="tag player">ИГРОК</span>. Держите все 20 мест занятыми и не оставляйте Центр пустым ни на секунду.</li>
+  <li>Надёжность важнее очков: если враг давит, в гарнизоне стоят сильнейшие. Если атака слабая — пускайте по очереди остальных, чтобы каждый набрал на сундуки.</li>
+  <li>Слать в Центр несколько отрядов сразу — лишние вернутся сами.</li>
+  <li>Беречь своих соседей: чтобы победить, врагу надо сначала сжечь поселения вокруг. <span class="tag video">ВИДЕО</span></li>
+  <li>Помощь соседних союзов не рассчитывать: по правилу 5 воевать можно только внутри своей пары. <span class="tag game">ИЗ ИГРЫ</span></li>
+</ul></div>
+</div>
+<div class="note"><b>Известный приём с мини-союзами</b> <span class="tag video">ВИДЕО</span><br>
+Слабые аккаунты выходят, создают маленькие союзы и ставят свои Центры вокруг основного. Клетки рядом заняты, врагу приходится садиться дальше, марш до Центра растягивается примерно до 50 секунд. 13 сентября приём ещё советовали; работает ли он сейчас, неизвестно. Минусы: вышедшие теряют участие на 48 часов, а разработчики могут закрыть приём в любом патче.</div>
+</section>
+
+<section id="c3"><h2>План атаки</h2>
+<p class="lead">Задача: за 30 минут раз за разом выбивать гарнизон, пока прочность не дойдёт до 0.</p>
+<div class="card"><h3>По минутам</h3>
+<div class="timeline">
+  <div class="step"><span class="t">21:30 · подготовка</span><b>Переход в штат соперника</b>Телепорт в чужой штат доступен с начала подготовки. Садиться пока вне серой зоны, ближе к её краю.</div>
+  <div class="step"><span class="t">21:30 — 21:40</span><b>Разведка</b>Посмотреть, где стоит Центр, с какой стороны город или чужие Центры, где свободно. Назначить сторону захода.</div>
+  <div class="step"><span class="t">21:40 · зона открылась</span><b>Рывок к Центру</b>Занять клетки вплотную раньше защитников. Прыгать можно раз в 2 минуты — если вас сожгли, возвращайтесь сразу, как откроется.</div>
+  <div class="step"><span class="t">21:40 — 22:00</span><b>Расчистка</b>Жечь поселения защитников рядом с Центром, чтобы выбросить их из зоны. Очков за убийства в подготовке может не быть, но позиция важнее.</div>
+  <div class="step"><span class="t">22:00 · бой</span><b>Ралли на Центр</b>Сильнейший собирает ралли, остальные бьют одиночными маршами в промежутках, не давая гарнизону восстановиться.</div>
+  <div class="step"><span class="t">22:00 — 22:30</span><b>Держать темп</b>Лечиться ускорителями между заходами (идут очки) и сразу возвращаться. Паузы дают защитнику завести свежий гарнизон.</div>
+</div></div>
+<div class="card"><h3>Правила атакующего</h3><ul>
+  <li>Каждая снятая единица прочности — 2 000 личных очков тому, кто её снял.</li>
+  <li>Бить только Центр мало: пока вокруг стоят поселения защитников, они успевают подкреплять. Сначала жечь окружение. <span class="tag video">ВИДЕО</span></li>
+  <li>Против сильного гарнизона — только ралли, одиночные марши разобьются. <span class="tag video">ВИДЕО</span></li>
+  <li><b>Не атаковать с полным госпиталем.</b> Всё, что не поместилось, погибает навсегда. <span class="tag video">ВИДЕО</span></li>
+  <li>Щит в зоне не включить, значит ваше поселение там всегда уязвимо. Оставляйте дома часть войск.</li>
+  <li>Распределить силы на все 30 минут. В видео атака заметно ослабла уже к 13-й минуте. <span class="tag video">ВИДЕО</span></li>
+</ul></div>
+</section>
+
+<section id="c4"><h2>Частые ошибки</h2>
+<p class="lead">На чём теряют войска и очки.</p>
+<div class="card"><ul>
+  <li><b>Нет Центра союза к началу подготовки</b> — поражение без боя.</li>
+  <li><b>Неполный гарнизон</b> — одну атаку легче выбить целиком, прочность падает.</li>
+  <li><b>Атака с полным госпиталем</b> — массовая гибель войск.</li>
+  <li><b>Жечь ускорители ради очков</b> — сутки ускорителей дают всего 345 600 очков, бои дают в десятки раз больше.</li>
+  <li><b>Рассчитывать на щит в зоне</b> — он там не включается.</li>
+  <li><b>Принять сильного игрока накануне</b> — 48 часов он в событии не участвует.</li>
+  <li><b>Собрать всех сильных в Центре</b>, если есть башни, — пока перераспределяетесь, башни возьмут.</li>
+  <li><b>Забыть про тех, кто не в сети</b> — их поселения сожгут первыми.</li>
+  <li><b>Сесть далеко от Центра</b> — подкрепление приходит позже вражеского марша.</li>
+  <li><b>Сжечь все силы в первые 10 минут боя</b> — оставшиеся 20 минут воевать нечем.</li>
+  <li><b>Тратить всё на это событие</b>, забыв про «Дуэль союзов» и другие события недели, где нужны те же ускорители.</li>
+</ul></div>
+</section>
+<!-- ============ D. СПРАВОЧНИК ============ -->
+<div class="part" id="d"><h2><span class="n">Справочник</span></h2>
+<p class="lead">Подробности, цифры и источники. Раздел можно свернуть, нажав на его заголовок.</p></div>
+<details class="ref" open><summary>Наш бой: все данные</summary><div class="in">
+<div class="tbl"><table>
+  <tr><td>Кто мы</td><td><b>#750 [RED] ARMY — защитник</b>, раунд 1</td></tr>
+  <tr><td>Соперник</td><td>станет известен в среду 30.09 в 09:30 МСК</td></tr>
+  <tr><td>Подготовка</td><td>среда 30.09, 21:30 — 22:00 МСК</td></tr>
+  <tr><td>Бой</td><td>среда 30.09, 22:00 — 22:30 МСК</td></tr>
+  <tr><td>Наш Центр союза</td><td>X:1005, Y:766 · прочность 10 000</td></tr>
+  <tr><td>Наши очки сезона</td><td>38 490 · 68-е место</td></tr>
+  <tr><td>Под угрозой</td><td>7 690 очков (20%)</td></tr>
+  </table></div>
+  <p class="legend"><span class="tag game">ИЗ ИГРЫ</span> экран события нашего союза, 29.09.2026.</p>
+</div></details>
+<details class="ref" open><summary>Суть события</summary><div class="in">
+<p class="lead">Что происходит и за что воюем.</p>
+<div class="big">
+  <div><b>1 час</b><span>подготовка 30 мин и бой 30 мин</span></div>
+  <div><b>10 000</b><span>прочность Центра союза</span></div>
+  <div><b>20</b><span>мест в гарнизоне Центра</span></div>
+  <div><b>≈ 20%</b><span>очков сезона на кону</span></div>
+</div>
+<div class="card" style="margin-top:12px">
+<ul>
+  <li>Игра подбирает нашему союзу соперника из <b>другого штата</b>. Один союз назначается <b>защитником</b>, другой <b>атакующим</b>. <span class="tag game">ИЗ ИГРЫ</span></li>
+  <li>Бой идёт <b>на обычной карте в штате защитника</b>, вокруг его Центра союза. Отдельной карты нет. <span class="tag game">ИЗ ИГРЫ</span> <span class="tag video">ВИДЕО</span></li>
+  <li>Дипломат союза [SEX] писал про «отдельную карту». Это не подтвердилось: правила, видео и игроки в Telegram говорят обратное. <span class="tag player">ИГРОК</span></li>
+  <li>Атакующие победили, если прочность Центра упала до 0 до конца боя. Иначе победил защитник. <span class="tag game">ИЗ ИГРЫ</span></li>
+  <li>Победившие атакующие <b>забирают часть сезонных очков</b> защитника. Эти очки и есть «ДНК дракона» в сезонном рейтинге союзов. <span class="tag game">ИЗ ИГРЫ</span></li>
+  <li>В июльских видео частичного грабежа не было: Центр устоял — защитник ничего не теряет. <span class="tag video">ВИДЕО</span> Игроки в Telegram пишут, что сейчас есть ещё 3 башни и очки теряются по частям, за каждую упавшую точку. <span class="tag player">ИГРОК</span></li>
+</ul>
+</div>
+<div class="note red"><b>Не путать</b> со «Столкновением генов» (захват логов за ДНК), «Драконьей катастрофой» (боссы на карте) и «Захватом логова». Это разные события с другими правилами.</div>
+
+</div></details>
+<details class="ref" open><summary>Кто допущен</summary><div class="in">
+<p class="lead">Условия для союза и для каждого бойца.</p>
+<div class="two">
+<div class="card"><h3>Союз</h3><ul>
+  <li>Отбор идёт по силе и сезонным очкам: чем они выше, тем больше шансов пройти. <span class="tag game">ИЗ ИГРЫ</span></li>
+  <li>В июльской версии правил порог был жёстким: топ-15 штата по мощи и минимум 3000 очков. <span class="tag game">ИЗ ИГРЫ</span></li>
+  <li><b>Мы отбор прошли</b> и участвуем в раунде 1.</li>
+  <li>У союза <b>должен стоять Центр союза</b> к началу подготовки. Нет Центра — автоматическое поражение. <span class="tag game">ИЗ ИГРЫ</span></li>
+  <li>Допущенный союз нельзя распустить во время подбора, подготовки и боя. <span class="tag game">ИЗ ИГРЫ</span></li>
+</ul></div>
+<div class="card"><h3>Боец</h3><ul>
+  <li>После выхода из любого союза нужно ждать <b>48 часов</b>. <span class="tag patch">ПАТЧ 2.6.100</span></li>
+  <li>В эти 48 часов нельзя слать марши на Центры союзов и их вспомогательные здания и атаковать поселения врага. <span class="tag patch">ПАТЧ 2.6.100</span></li>
+  <li>В союзе меньше 48 часов — <b>в бою участвовать нельзя</b>: ни марш на Центр союза, ни атака вражеских шефов. <span class="tag game">ИЗ ИГРЫ · п. 12</span></li>
+</ul></div>
+</div>
+<div class="note"><b>Для офицеров:</b> за 48 часов до боя новых не принимать. Принятый в последний момент игрок в событии бесполезен.</div>
+
+</div></details>
+<details class="ref" open><summary>Расписание</summary><div class="in">
+<p class="lead">Событие открывается на 4-й неделе сезона и идёт 4 недели. <span class="tag game">ИЗ ИГРЫ</span></p>
+<div class="card"><h3>Наш раунд 1 <span class="tag game">ИЗ ИГРЫ</span></h3>
+<div class="timeline">
+  <div class="step"><b>Подбор соперника</b><span class="t">Пн 28.09 03:00 — Ср 30.09 09:30 МСК</span> · ничего делать не нужно.</div>
+  <div class="step"><b>Результаты подбора</b><span class="t">Ср 30.09 09:30 — 21:30 МСК</span> · 12 часов. Видно соперника.</div>
+  <div class="step"><b>Подготовка</b><span class="t">Ср 30.09 21:30 — 22:00 МСК</span> · 30 минут. Первые 10 минут идёт обстрел зоны вокруг Центра.</div>
+  <div class="step"><b>Бой</b><span class="t">Ср 30.09 22:00 — 22:30 МСК</span> · 30 минут. Только теперь можно бить Центр и ставить гарнизон.</div>
+  <div class="step"><b>Результаты</b><span class="t">Ср 30.09 22:30 — Пн 05.10 03:00 МСК</span> · награды и пересчёт очков.</div>
+</div>
+<p class="legend">В игре время указано по UTC: подготовка 18:30, бой 19:00–19:30. Москва = UTC + 3 часа.</p>
+</div>
+<div class="note green"><span class="tag player">ИГРОК</span> Всего будет <b>4 раунда: 2 раза союз играет в защите и 2 раза в атаке</b>. Так пишет дипломат союза [SEX]; в правилах игры этого нет.</div>
+<div class="note"><span class="tag guess">ВЫВОД</span> Раунд идёт раз в неделю, с понедельника по понедельник, бой в среду. Следующие раунды, вероятно, 7, 14 и 21 октября в то же время — <b>сверяйте по вкладке «Обзор»</b>.</div>
+<div class="note blue"><span class="tag game">ИЗ ИГРЫ</span> Время боя у штатов разное: в штате 75 бой шёл в 15:30 МСК, у нас в 22:00. <span class="tag guess">ВЫВОД</span> Роли, судя по всему, чередуются: союз из видео защищался в 1-м и 3-м раундах, а про 2-й автор говорил «будем атаковать». Если так, наш 2-й раунд — атака.</div>
+
+</div></details>
+<details class="ref" open><summary>Правила игры полностью</summary><div class="in">
+<p class="lead">Все 12 пунктов с экрана правил в нашей игре, дословно. <span class="tag game">ИЗ ИГРЫ</span></p>
+<div class="card"><ol>
+  <li>Это событие откроется на 4-ю неделю текущего сезона и будет длиться 4 недели.</li>
+  <li>Союзы с более высокой силой и большим количеством сезонных очков имеют больше шансов пройти отбор.</li>
+  <li>Каждый раунд состоит из 5 этапов: подбор, результаты подбора, подготовка, битва и результаты битвы.</li>
+  <li>Во время этапов подготовки и битвы атакующие могут перенестись в штат защитников. Однако атакующие не <i>[могут атаковать Центр союза]</i> защитников до начала этапа битвы.</li>
+  <li>На этапе подготовки и этапе битвы участники союза, которым были подобраны противники, могут атаковать только назначенные цели. Участники, которым не был подобран противник, не могут атаковать тех, у кого он есть. Участники, не имеющие подобранных противников, могут свободно сражаться друг с другом.</li>
+  <li>В первые 10 мин. этапа подготовки области рядом с Центром союза защитников будут обстреляны. В это время переместиться в область обстрела будет невозможно. По окончании обстрела перемещение вновь станет доступно, однако <b>невозможно будет активировать щиты на атакованной территории</b>.</li>
+  <li>Если прочность Центра союза защитников снизится до 0 до окончания битвы, атакующая сторона победит. В противном случае победит обороняющаяся сторона. Если на момент начала этапа подготовки у обороняющейся стороны не будет Центра союза, атакующая сторона победит автоматически.</li>
+  <li>В случае победы атакующие смогут забрать себе часть сезонных очков защитников.</li>
+  <li>Во время события атакующие могут перемещаться 1 раз каждые 2 минуты.</li>
+  <li>Во время битвы прочность Центра союза защитников снижается, когда атакующие отряды уничтожают все отряды обороны, размещенные внутри Центра союза.</li>
+  <li>Союзы, отобранные для участия в событии, нельзя распустить во время этапов подбора, результатов подбора, подготовки и битвы.</li>
+  <li>Шефы, находящиеся в текущем союзе менее 48 часов, не могут участвовать в бою (включая марш против Центров союзов или атаки на вражеских шефов).</li>
+</ol>
+<p class="legend">В пункте 4 слова в скобках восстановлены по смыслу: они попали на стык двух скриншотов.</p></div>
+<div class="card"><h3>Чем наши правила отличаются от июльских</h3>
+<div class="tbl"><table>
+<tr><th>Пункт</th><th>Было в июле (англ.)</th><th>Сейчас у нас</th></tr>
+<tr><td>2. Отбор</td><td>Топ-15 союзов штата по мощи, минимум 3000 сезонных очков</td><td>Чёткого порога нет: чем выше сила и очки, тем больше шансов</td></tr>
+<tr><td>9. Телепорт атакующих</td><td>«Получают 1 бесплатное перемещение каждые 2 минуты»</td><td>«Могут перемещаться 1 раз каждые 2 минуты»</td></tr>
+<tr><td>12. Новички</td><td>Пункта не было: воевать было можно, но без наград, игра предупреждала об этом</td><td>Меньше 48 часов в союзе — в бою не участвуешь</td></tr>
+</table></div>
+<p><span class="tag guess">ВЫВОД</span> Пункт 9 в русском тексте читается как ограничение: атакующий не может прыгать чаще раза в 2 минуты. Это хорошо для защиты — сожжённый враг вернётся не сразу. Бесплатны ли эти прыжки, из русского текста не ясно.</p></div>
+<div class="card"><h3>Изменения патчами</h3><ul>
+  <li><span class="tag patch">ПАТЧ 2.5.800 · 6 авг</span> Добавлены новые способы получения очков (какие именно — не сказано).</li>
+  <li><span class="tag patch">ПАТЧ 2.5.800 · 6 авг</span> Защитники могут отправлять в Центр союза <b>несколько отрядов сразу</b>. В гарнизон встанет первый прибывший, остальные вернутся сами.</li>
+  <li><span class="tag patch">ПАТЧ 2.6.100 · 17 сен</span> Ожидание после выхода из союза — 48 часов.</li>
+</ul></div>
+
+</div></details>
+<details class="ref" open><summary>Зона обстрела и телепорты</summary><div class="in">
+<p class="lead">Позиция решает: кто ближе к Центру, тот быстрее доходит.</p>
+<div class="zone">
+  <div class="gray"></div>
+  <div class="center">ЦЕНТР<br>СОЮЗА</div>
+  <div class="lbl" style="left:12px;top:12px;color:#cfd5e2">серая зона — обстрел</div>
+  <div class="lbl" style="right:12px;bottom:12px;color:#b8f5dd">обычная карта</div>
+</div>
+<p class="legend">Схема. Зона — квадрат по сетке карты, на экране выглядит ромбом, с центром в Центре союза, примерно 25–30 клеток в поперечнике <span class="tag guess">ВЫВОД</span> (точного размера в игре нет).</p>
+<div class="card"><ul>
+  <li><b>0–10-я минута подготовки:</b> зону обстреливают. Все поселения внутри, и свои, и чужие, игра сама выбрасывает наружу. Урона от обстрела нет, приходит письмо с 1 предметом в подарок. Здания союза остаются на месте. <span class="tag game">ИЗ ИГРЫ</span></li>
+  <li>Попытка сесть в зону в это время не проходит: игра не даёт переместиться. <span class="tag video">ВИДЕО</span></li>
+  <li><b>С 10-й минуты:</b> зона открыта для всех. <b>Щиты в зоне не включаются.</b> <span class="tag game">ИЗ ИГРЫ</span></li>
+  <li>Атакующие могут перемещаться <b>1 раз каждые 2 минуты</b>. В английской версии это было «1 бесплатное перемещение каждые 2 минуты». Защитники тратят свои перемещения. <span class="tag game">ИЗ ИГРЫ</span></li>
+  <li>Сожжённое поселение выбрасывает из зоны. Вернуться можно, но это стоит телепорта и времени. <span class="tag video">ВИДЕО</span></li>
+  <li>Из поселений при атаке грабят ресурсы как обычно. <span class="tag video">ВИДЕО</span></li>
+</ul></div>
+
+</div></details>
+<details class="ref" open><summary>Центр союза: прочность и гарнизон</summary><div class="in">
+<p class="lead">Как именно ломается Центр и что его держит.</p>
+<div class="card"><ul>
+  <li>Прочность Центра — <b>10 000</b>. <span class="tag game">ИЗ ИГРЫ</span></li>
+  <li>Прочность падает, когда атакующий <b>за одну атаку уничтожает все войска</b> в Центре. Пока после атаки внутри кто-то остался, Центр цел. <span class="tag game">ИЗ ИГРЫ</span></li>
+  <li>Прочность дошла до 0 — Центр уничтожен, <b>бой заканчивается сразу</b>, атакующий забирает очки. <span class="tag game">ИЗ ИГРЫ</span></li>
+  <li>В гарнизоне <b>20 мест</b> для шефов. <span class="tag game">ИЗ ИГРЫ</span></li>
+  <li>Выбитый игрок может сесть в гарнизон снова. <span class="tag player">ИГРОК</span></li>
+  <li>Кроме Центра, по словам игроков, есть <b>3 башни</b> — отдельные точки со своим гарнизоном. <span class="tag player">ИГРОК</span></li>
+  <li>Ставить гарнизон можно <b>только в фазе боя</b>. В подготовке игра не давала отправить войска в Центр. <span class="tag video">ВИДЕО</span></li>
+  <li>От одного игрока в гарнизоне стоит один отряд. Отправить можно несколько, встанет первый дошедший. <span class="tag patch">ПАТЧ 2.5.800</span></li>
+  <li>Лидер может <b>отослать чужой отряд домой</b> стрелкой в списке гарнизона, чтобы игрок вылечился и вернулся. Доступно ли это R4 — проверить. <span class="tag video">ВИДЕО</span></li>
+  <li>Атакующие бьют Центр и одиночными маршами, и ралли. <span class="tag video">ВИДЕО</span></li>
+  <li>Прочность Центров чужих пар на карте не видна. <span class="tag video">ВИДЕО</span> Нашу прочность соперник, скорее всего, видит: она показана в общей карточке пары на вкладке «Отчёты». <span class="tag guess">ВЫВОД</span></li>
+  <li>Строят Центр только R4 и R5. <span class="tag video">ВИДЕО</span></li>
+</ul></div>
+<div class="note green"><b>Как это выглядело на практике</b> <span class="tag video">ВИДЕО</span><br>
+Раунд 1: гарнизон 9 из 20. За первые минуты Центр потерял 3% прочности, к 5-й минуте боя оставалось около 8 700 из 10 000. К 13-й минуте атаки стали реже. Видео обрывается на 16-й минуте боя, итог не показан.</div>
+
+</div></details>
+<details class="ref" open><summary>Личные очки: полная таблица</summary><div class="in">
+<p class="lead">За что начисляют очки каждому бойцу. Таблица из нашей игры, 29.09.2026. <span class="tag game">ИЗ ИГРЫ</span></p>
+<div class="card tbl"><table>
+<tr><th>Действие</th><th class="num">Очки</th></tr>
+<tr><td><b>«Отправляйте гарнизон в здания союза кажд. 60 сек.»</b></td><td class="num"><b>+600 000</b></td></tr>
+<tr><td><b>Снять 1 единицу прочности здания союза</b> (атакующим)</td><td class="num"><b>+2 000</b></td></tr>
+<tr><td>Победить 1 вражеского бойца ур. 10 в здании союза</td><td class="num">+110</td></tr>
+<tr><td>1 свой раненый ур. 10 в здании союза</td><td class="num">+66</td></tr>
+<tr><td>1 свой погибший ур. 10 в здании союза</td><td class="num">+66</td></tr>
+<tr><td>Победить 1 вражеского бойца ур. 10 вне зданий союза</td><td class="num">+66</td></tr>
+<tr><td>1 свой раненый ур. 10 вне зданий союза</td><td class="num">+44</td></tr>
+<tr><td>1 свой погибший ур. 10 вне зданий союза</td><td class="num">+44</td></tr>
+<tr><td>1 минута ускорителей обучения (в подготовке или бою)</td><td class="num">+240</td></tr>
+<tr><td>1 минута ускорителей лечения (в подготовке или бою)</td><td class="num">+240</td></tr>
+</table></div>
+<div class="note green"><b>Гарнизон — надёжный источник очков, не зависящий от силы.</b><br>
+<span class="tag guess">ВЫВОД</span> Мы понимаем строку так: 600 000 очков за каждые 60 секунд, пока ваш отряд стоит в гарнизоне. Если это верно:
+<div class="tbl"><table>
+<tr><th>Минут в гарнизоне</th><th class="num">Очки</th><th>Сундук</th></tr>
+<tr><td>9 минут</td><td class="num">5,4 млн</td><td>1-й (5 млн)</td></tr>
+<tr><td>17 минут</td><td class="num">10,2 млн</td><td>2-й (10 млн)</td></tr>
+<tr><td>25 минут</td><td class="num">15 млн</td><td>3-й (15 млн)</td></tr>
+<tr><td>30 минут — теоретический максимум</td><td class="num">18 млн</td><td>первые три</td></tr>
+</table></div>
+<b>Чего мы не знаем про эту строку:</b> начисляют ли за неполную минуту; сбрасывается ли счёт, когда отряд выбили; получает ли очки каждый из 20 стоящих. Источник доступен только защитнику — в раундах атаки его нет.<br>
+<b>Мест мало:</b> 20 мест × 30 минут = 600 место-минут. Первый сундук одним только гарнизоном успеют взять не больше 66 человек, и то при идеальной ротации.</div>
+<div class="note red"><b>Сильные бойцы с боёв набирают намного больше.</b> <span class="tag game">ИЗ ИГРЫ</span> В июле, когда очков за гарнизон ещё не было, к 6-й минуте боя у лидеров было 140–310 млн личных очков — только за убитых и потери. Гарнизон важен в первую очередь средним и слабым бойцам.</div>
+<div class="card"><h3>Что из этого следует</h3><ul>
+  <li>Бой в здании союза ценнее боя в поле: 110 против 66 за убитого, 66 против 44 за свои потери.</li>
+  <li>Атакующие на весь союз делят максимум 10 000 × 2 000 = <b>20 млн очков</b> за прочность Центра.</li>
+  <li>Цифры даны для войск 10-го уровня. Для других уровней смотрите по кнопке с лупой рядом со строкой.</li>
+  <li>Очки идут и за свои потери, но мёртвые войска не вернуть.</li>
+  <li><b>Ускорители считаются только в подготовке и бою</b>, то есть с 21:30 до 22:30. Сутки ускорителей = 345 600 очков — это мало рядом с боями. Жечь ускорители ради очков невыгодно, тратьте их только на реальное лечение и добор войск.</li>
+  <li>Личные очки ограничены дорожкой сундуков: открыл последний — дальше наград нет. <span class="tag video">ВИДЕО</span></li>
+</ul></div>
+<div class="note"><span class="tag game">ИЗ ИГРЫ</span> В июле и 5 августа таблица была короче: 66 за убитого, 22 за своего раненого или погибшего, 240 за минуту ускорителей. <span class="tag guess">ВЫВОД</span> Строки про гарнизон, прочность и бой в здании появились позже, вероятно с патчем 2.5.800. Очки за свои потери выросли с 22 до 44–66.</div>
+
+</div></details>
+<details class="ref" open><summary>Награды</summary><div class="in">
+<p class="lead">Что получает боец и что получает союз.</p>
+<div class="card tbl"><h3>Наши сундуки за очки <span class="tag game">ИЗ ИГРЫ</span></h3>
+<table>
+<tr><th class="num">Очки</th><th class="num">Ценность, самоцв.</th></tr>
+<tr><td class="num">5 млн</td><td class="num">6 540</td></tr>
+<tr><td class="num">10 млн</td><td class="num">6 710</td></tr>
+<tr><td class="num">15 млн</td><td class="num">12 080</td></tr>
+</table>
+<p class="legend">Это первая страница из трёх, всего сундуков девять. Пороги и содержимое остальных шести на скриншотах не видны.</p></div>
+<div class="card"><h3>Наша награда за победу <span class="tag game">ИЗ ИГРЫ</span></h3>
+<p>Карты со звездой ×10, монеты ×6, пробирки по 1K ×10, ускорители по 1 часу со значком будильника ×20 (тип не подписан), ускорители лечения по 1 часу — количество начинается на 2, дальше обрезано. Справа могут быть ещё предметы: ряд на скриншоте не поместился.</p></div>
+<div class="card tbl"><h3>Для сравнения: сундуки в штате 75, июль <span class="tag game">ИЗ ИГРЫ</span></h3>
+<table>
+<tr><th class="num">Очки</th><th class="num">Ценность, самоцв.</th><th class="num">Кисть</th><th class="num">Протеин</th><th class="num">Самоцветы</th></tr>
+<tr><td class="num">10 млн</td><td class="num">1 550</td><td class="num">—</td><td class="num">1</td><td class="num">100</td></tr>
+<tr><td class="num">20 млн</td><td class="num">1 900</td><td class="num">?</td><td class="num">?</td><td class="num">?</td></tr>
+<tr><td class="num">30 млн</td><td class="num">4 680</td><td class="num">1</td><td class="num">2</td><td class="num">100</td></tr>
+<tr><td class="num">40 млн</td><td class="num">4 330</td><td class="num">—</td><td class="num">3</td><td class="num">150</td></tr>
+<tr><td class="num">50 млн</td><td class="num">5 610</td><td class="num">—</td><td class="num">4</td><td class="num">150</td></tr>
+<tr><td class="num">60 млн</td><td class="num">8 390</td><td class="num">1</td><td class="num">5</td><td class="num">150</td></tr>
+<tr><td class="num">75 млн</td><td class="num">11 760</td><td class="num">2</td><td class="num">6</td><td class="num">200</td></tr>
+<tr><td class="num">90 млн</td><td class="num">14 380</td><td class="num">?</td><td class="num">?</td><td class="num">?</td></tr>
+<tr><td class="num">110 млн</td><td class="num">20 000</td><td class="num">4</td><td class="num">10</td><td class="num">300</td></tr>
+</table>
+<p class="legend">«Кисть» — Magic Paintbrush, «Протеин» — Biogenic Protein (русские названия в игре могут отличаться). В сундуках ещё есть обломки снаряжения и ящики припасов: в первом 2 и 10, в последнем 25 и 50. «?» — сундук в видео не открывали.</p></div>
+<div class="card"><ul>
+  <li><span class="tag game">ИЗ ИГРЫ</span> Пороги снижали: 22 июля первые три сундука стояли на 10, 20 и 30 млн, с 5 августа — на <b>5, 10 и 15 млн</b>. <span class="tag guess">ВЫВОД</span> Из-за патча или из-за номера раунда — неизвестно.</li>
+    <li><span class="tag game">ИЗ ИГРЫ</span> Есть общий рейтинг личных очков обоих союзов и MVP. Отдельной награды за место в нём не найдено.</li>
+</ul></div>
+<div class="card"><h3>Главный приз — очки сезона</h3>
+<p><span class="tag game">ИЗ ИГРЫ</span> На экране события написано, сколько очков можно у союза отнять:</p>
+<div class="tbl"><table>
+<tr><th>Союз в видео</th><th class="num">Всего очков</th><th class="num">Можно отнять</th><th class="num">Доля</th></tr>
+<tr><td>Раунд 1, 12-е место сезона</td><td class="num">112 940</td><td class="num">22 580</td><td class="num">20%</td></tr>
+<tr><td>Раунд 3, 6-е место сезона</td><td class="num">236 270</td><td class="num">47 250</td><td class="num">20%</td></tr>
+<tr><td><b>Мы, [RED] ARMY, 68-е место</b></td><td class="num"><b>38 490</b></td><td class="num"><b>7 690</b></td><td class="num">20%</td></tr>
+</table></div>
+<p><span class="tag guess">ВЫВОД</span> На кону пятая часть всех сезонных очков союза. Процент в игре не написан, он посчитан по трём примерам. Сезонный рейтинг союзов определяет лигу и итоговые награды сезона, поэтому одно поражение может стоить нескольких мест.</p></div>
+<div class="card"><h3>Итоги сезона: зачем беречь очки <span class="tag game">ИЗ ИГРЫ</span></h3>
+<p>Сейчас мы проходим в лигу <b>«Бронза»</b>: союз в топ-100 (мы 68-е) и собрано больше 5 000 ДНК дракона (у нас 38 490).</p>
+<div class="tbl"><table>
+<tr><th>Кому</th><th class="num">Карты</th><th class="num">Монеты</th><th class="num">Серебро 500</th><th class="num">Ускор. 1 ч</th><th class="num">Ящики</th></tr>
+<tr><td>Лидер</td><td class="num">15</td><td class="num">15</td><td class="num">15</td><td class="num">30</td><td class="num">30</td></tr>
+<tr><td>R4</td><td class="num">12</td><td class="num">12</td><td class="num">12</td><td class="num">24</td><td class="num">24</td></tr>
+<tr><td>Все участники</td><td class="num">10</td><td class="num">10</td><td class="num">10</td><td class="num">20</td><td class="num">20</td></tr>
+</table></div>
+<p class="legend">Всего лиг восемь. Требования и награды следующих лиг на скриншоте не раскрыты.</p></div>
+
+</div></details>
+<details class="ref" open><summary>Разбор боёв по видео</summary><div class="in">
+<p class="lead">Что происходило в реальных боях: два боя защитника из штата 75 и план обороны арабского автора. Всё в этом разделе <span class="tag video">ВИДЕО</span> — это наблюдения игроков, а не правила.</p>
+
+<div class="card"><h3>Бой 1 · 22 июля · защита держалась</h3>
+<p>Защитник — 12-е место сезона, на кону 22 580 очков. Атакующий — союз из штата 70.</p>
+<div class="timeline">
+  <div class="step"><span class="t">Начало подготовки</span><b>Всех раскидало</b>Автора выбросило из зоны «куда-то случайно». Сесть обратно игра не давала, хотя он пробовал несколько раз.</div>
+  <div class="step"><span class="t">Подготовка</span><b>Враг пришёл и начал жечь</b>Атакующие сели рядом и стали жечь поселения защитников. В общем чате штата появились игроки чужого штата.</div>
+  <div class="step"><span class="t">Подготовка</span><b>Защитники подкрепляли друг друга</b>Автор отправил главный отряд в поселение соседа. Итог по отчёту: победа обороны, у врага <b>33 тысячи погибших</b>. Враг ударил снова — ещё 33 тысячи.</div>
+  <div class="step"><span class="t">За 2 минуты до боя</span><b>Усиления</b>Включены навык союза, сезонные навыки и личные усиления атаки и защиты.</div>
+  <div class="step"><span class="t">Бой, первые минуты</span><b>Ралли на Центр</b>Враг бил и одиночными маршами, и двумя ралли подряд. Прочность упала на 3%.</div>
+  <div class="step"><span class="t">5-я минута боя</span><b>Прочность около 8 700</b>Автор отвлёкся посмотреть на соседние союзы, его отряда в гарнизоне не было — Центр получил урон. Всего к этому моменту потеряно около 13% прочности.</div>
+  <div class="step"><span class="t">11–13-я минута боя</span><b>Атака слабеет</b>Автор ждёт, что враг скоро сдастся: госпитали у него полны, лечить нечем. К 13-й минуте атаки действительно стали реже.</div>
+  <div class="step"><span class="t">16-я минута боя</span><b>Конец записи</b>Видео обрывается, итог боя не показан.</div>
+</div></div>
+
+<div class="card"><h3>Почему атака буксовала</h3><ul>
+  <li><b>Били россыпью.</b> Одиночные марши несколькими отрядами давали огромные потери. В одном отчёте у атакующего, по словам автора, около 60 тысяч погибших при полном госпитале.</li>
+  <li><b>Ралли работало в разы лучше.</b> Ралли сильнейшего игрока: 9 тысяч раненых и только 2 тысячи погибших.</li>
+  <li><b>Шли с полным госпиталем.</b> Автор показывает отчёт, где почти все потери врага — погибшие, а не раненые: места в госпитале уже не было.</li>
+  <li><b>В бою перестали жечь поселения.</b> В подготовке жгли, а в бою нет. Защитники остались рядом с Центром и успевали возвращаться в гарнизон.</li>
+  <li><b>Потратили силы в подготовке.</b> Десятки тысяч войск погибли ещё до начала боя, когда очки за это не шли.</li>
+</ul></div>
+
+<div class="card"><h3>Бой 3 · 5 августа · оборона с блокировкой</h3>
+<p>Тот же союз, уже 6-е место сезона, на кону 47 250 очков. Атакующий — союз из штата 80.</p>
+<ul>
+  <li>Вокруг своего Центра заранее поставили около десяти Центров маленьких союзов. Рядом осталось <b>всего два удобных места</b>, остальные клетки — далеко. Одну щель оставили нарочно: враг пытается туда сесть, но не может.</li>
+  <li>После 10-й минуты сильнейшие заняли эти два места. Врагу пришлось садиться дальше: марш до Центра около 50 секунд против 11–14 секунд у защитника.</li>
+  <li>Автор сам ходил жечь слабые поселения врага в подготовке и забирал уголь по 2–10 тысяч за удар.</li>
+  <li>Один враг с полным госпиталем не ушёл из-под ударов и потерял почти все войска: в двух отчётах подряд его потери шли сразу в погибшие. После этого он снял гарнизон — войск не осталось.</li>
+  <li>Самого автора тоже «накрыли»: по нему, по-видимому, ударили игроки с мощью около 60 млн, и он потерял порядка <b>100 тысяч войск</b> одним ударом. Стоять рядом с врагом опасно даже сильному.</li>
+  <li>Враг возвращался на место после сожжения — его жгли снова. Автор: «у меня куча телепортов, но гоняться за всеми не успеваю».</li>
+  <li>За минуту до боя автор оставил часть отрядов в поселениях союзников, ожидая ударов по ним.</li>
+  <li>В бою он пришёл в гарнизон первым без ускорители марша. Враг тратил ускорители марша, чтобы успеть раньше.</li>
+</ul></div>
+
+<div class="card"><h3>Приёмы, которые сработали</h3>
+<div class="tbl"><table>
+<tr><th>Приём</th><th>Как делать</th></tr>
+<tr><td><b>Приманка</b></td><td>Дразнить врага разведкой и мелкими ударами, чтобы он напал на поселение, в котором стоят подкрепления союзников. Враг теряет войска, защитник почти ничего.</td></tr>
+<tr><td><b>Подкрепление соседа</b></td><td>Держать отряд в поселении товарища рядом с Центром. «Защищайте своих — не давайте их жечь».</td></tr>
+<tr><td><b>Гарнизон внахлёст</b></td><td>Не ждать, пока отряд выбьют. Отправить следующий за 10–12 секунд до удара вражеского ралли, чтобы он зашёл сразу после выбитого. Время удара видно по таймеру ралли.</td></tr>
+<tr><td><b>Ручной возврат</b></td><td>Отряд с малым остатком войск отозвать самому до удара и сразу послать свежий.</td></tr>
+<tr><td><b>Чистка списка лидером</b></td><td>В списке гарнизона виден процент войск у каждого. В видео у одного было 22,8% — таких отправлять домой лечиться, сильных оставлять.</td></tr>
+<tr><td><b>Полный отряд</b></td><td>Перед каждой отправкой добирать отряд до максимума: «важно держать его полностью заполненным».</td></tr>
+<tr><td><b>Глушилка разведки</b></td><td>Включить заранее. Враг разведывает перед каждым ударом; без данных он бьёт вслепую.</td></tr>
+<tr><td><b>Дистанция</b></td><td>Даже против более сильного союза ближняя позиция даёт шанс: успеваешь встать в гарнизон раньше, чем дойдёт марш врага.</td></tr>
+</table></div></div>
+
+<div class="card"><h3>План обороны от Tofan Tiles · 13 сентября</h3><ul>
+  <li><b>Центр ставить вплотную к городу.</b> Со стороны города врагу сесть негде, а обходной марш очень долгий. Под контролем остаются только фронт и два фланга.</li>
+  <li><b>Если Центр стоит в чистом поле</b> — атаки пойдут со всех сторон.</li>
+  <li><b>Зона — квадрат по сетке карты</b> (на экране выглядит ромбом), её границу видно. Два Центра рядом дают зону заметно больше.</li>
+  <li><b>Свои поселения расставить по всей зоне</b>, особенно с открытых сторон, чтобы врагу не осталось клеток.</li>
+  <li><b>Сильные должны быть онлайн</b> ко времени события: их задача — жечь пролезших, сожжённого выбрасывает из зоны.</li>
+  <li><b>Сидеть у Центра нужно только на время события.</b> Бонус Центра к скорости сбора действует и вне зоны — автор проверил на ресурсной точке 5-го уровня, время сбора одинаковое.</li>
+</ul></div>
+
+<div class="card"><h3>Мелочи, о которых полезно знать</h3><ul>
+  <li>Центр после первых ударов горит, потушить его нельзя.</li>
+  <li>Прочность Центров чужих пар не видна. Свою видно во всплывающем окне Центра и на вкладке «Отчёты».</li>
+  <li>В том же штате одновременно идут другие пары. Автор видео говорил, что может бить чужих атакующих, но удара не показал, а правило 5 это запрещает.</li>
+  <li>Подготовку можно пропустить и прийти только на бой. Но к 10-й минуте подготовки лучшие места уже разбирают.</li>
+  <li>«Кисти» из сундуков нужны для прокачки сезонных построек. Когда всё прокачано до 50-го уровня, они, вероятно, превращаются в билеты на облики.</li>
+  <li>Событие конкурирует за ускорители с 5-м днём «Дуэли союзов» и с «Черепахой» по понедельникам.</li>
+</ul></div>
+
+<div class="note blue"><b>О точности цифр.</b> Расшифровки сделаны автоматически с устной речи, автор говорит с акцентом и часто не договаривает. Числа потерь в этом разделе — порядок величины, а не точные значения.</div>
+<div class="note"><b>Поправка на свежие правила.</b> Видео сняты до патча 2.5.800. Тогда за гарнизон очков не давали. Второй отряд можно было послать и тогда; патч 2.5.800 закрепил правило: стоит первый прибывший, остальные возвращаются сами. Работает ли после патча приём «внахлёст», не проверено.  Тактика позиций и потерь от этого не изменилась.</div>
+
+</div></details>
+<details class="ref" open><summary>Опыт игроков из Telegram</summary><div class="in">
+<p class="lead">Сообщения из двух Telegram-сообществ: чата «Tiles Survive!» (17 тысяч участников) и группы «TILES SURVIVE RU COMMUNITY» (10 тысяч), с июля по 29 сентября 2026. Пишут те, кто уже отыграл событие. Всё в разделе <span class="tag player">ИГРОК</span> — это слова игроков, между собой они местами расходятся.</p>
+
+<div class="note red"><b>Главная новость: кроме Центра, возможно, есть 3 башни.</b><br>
+Несколько игроков независимо пишут про «Центр союза с 3 башнями» и «битву за центр союза и его башни». Это и есть «вспомогательные здания» из патча 2.6.100. В обучении нашей игры башен нет, но таблица очков говорит про «здания союза» во множественном числе.<br>
+Игрок из второй группы уточняет: «есть точка, либо 1, либо 4, типа башни, как на Аркадии» — то есть у одних союзов только Центр, у других Центр и три башни.<br>
+<b>Проверьте на карте:</b> стоят ли башни рядом с нашим Центром (X:1005, Y:766). Если стоят — оборону надо делить на 4 точки.</div>
+
+<div class="card"><h3>Гайд игрока @v1tron · опубликован в чате 23 и 29 сентября</h3><ul>
+  <li><b>Очерёдность:</b> атака → защита → атака → защита. Кто начинает в атаке — случайно.</li>
+  <li><b>Длительность 1 час:</b> первые 30 минут — бои и набор личных очков, вторые 30 минут — захват башен и Центра союза.</li>
+  <li><b>Старт в защите:</b> раскидывает по карте только тех, кто стоял в зоне Центра. Остальные остаются на местах.</li>
+  <li><b>Точки:</b> 3 башни и Центр. Центр по очкам равен обычной точке.</li>
+  <li><b>Конец события:</b> Центр снесён до 0 — бить больше нельзя.</li>
+  <li><b>Отряды:</b> один отряд на точку одновременно.</li>
+  <li><b>Главная задача защиты:</b> не дать ни одной точке упасть до 0.</li>
+</ul></div>
+
+<div class="card"><h3>Сколько очков сезона можно потерять — три версии</h3>
+<div class="tbl"><table>
+<tr><th>Источник</th><th>Что говорит</th></tr>
+<tr><td><span class="tag game">ИЗ ИГРЫ</span> наш экран</td><td>Под угрозой 7 690 из 38 490 — это <b>20%</b></td></tr>
+<tr><td><span class="tag player">ИГРОК</span> Matadora, 3 августа</td><td>«20% от всех заработанных сезонных очков на момент запуска схватки»</td></tr>
+<tr><td><span class="tag player">ИГРОК</span> @v1tron</td><td>Потолок <b>25%</b>. Одна башня — четверть потолка, две точки — половина, три — три четверти, всё — целиком</td></tr>
+<tr><td><span class="tag player">ИГРОК</span> Николай, 6 сентября</td><td><b>25%</b>: каждая башня 5%, Центр 10%. Это про 3-й сезон, где событие называется иначе</td></tr>
+</table></div>
+<p><span class="tag guess">ВЫВОД</span> Для нашего раунда верить экрану игры: 20%. Цифра 25% относится либо к 3-му сезону, либо к другой версии. Важно другое: <b>все сходятся, что очки теряются по частям</b> — за каждую упавшую точку, а не только за Центр.</p></div>
+
+<div class="card"><h3>Ответы игроков на частые вопросы</h3>
+<div class="tbl"><table>
+<tr><th>Вопрос</th><th>Ответ</th></tr>
+<tr><td>Сколько человек в Центре?</td><td>20</td></tr>
+<tr><td>Можно сесть заранее?</td><td>Нет</td></tr>
+<tr><td>Можно сесть обратно, если выбили?</td><td>Да</td></tr>
+<tr><td>Как лечить войска?</td><td>Обычным способом, вручную</td></tr>
+<tr><td>Как часто событие?</td><td>Раз в неделю, всего 4 боя, роли чередуются</td></tr>
+<tr><td>Когда узнаем роль?</td><td>На этапе подбора пишут, нападаете вы или защищаетесь</td></tr>
+<tr><td>До какого момента переносить Центр?</td><td>До начала подготовки: за 30 минут до боя всех откидывает, примерно за 20 минут открывается перелёт</td></tr>
+<tr><td>Будет ли ещё «Столкновение генов»?</td><td>После начала драконьего острова — нет, до конца сезона только он</td></tr>
+<tr><td>Отдельная карта или наш штат?</td><td>Отдельной карты нет: если вы в защите, соперник прилетает к вам</td></tr>
+<tr><td>Гибнут ли войска?</td><td>Да</td></tr>
+<tr><td>Можно ли поставить Центр в угол карты?</td><td>Во время события нельзя, телепорт туда запрещён; лучше искать место у границы города</td></tr>
+<tr><td>На что похоже?</td><td>«Мини-Аркадия для двух союзов», только «войска отлетают сильно быстрее»</td></tr>
+</table></div></div>
+
+<div class="card"><h3>Советы тех, кто уже защищался</h3><ul>
+  <li><b>Унести Центр подальше от места, где стоит союз.</b> Иначе при обстреле игроков, которые не в сети, раскидает по всей карте: «чтобы те, кто офф, не проснулись на краю карты».</li>
+  <li><b>Но помнить про тех, кто не в сети.</b> Один союз перенёс Центр, а соперник прилетел не к Центру, а к основной стоянке, где остались игроки офлайн, «и пожгли всё». Тем, кто не придёт на бой, — щит заранее. Вне зоны обстрела щиты работают.</li>
+  <li><b>Не отправлять всех сильных в Центр.</b> Павел, 26 августа: «основы отправили в центр… пока сообразили и начали перераспределять, у нас 2 точки взяли».</li>
+  <li><b>Собраться как на главное событие:</b> максимальный онлайн, а тем, кто не в сети, — подкрепление в поселение.</li>
+  <li><b>«Копи уголь».</b> Лечение идёт за ресурсы, а лечиться придётся много.</li>
+  <li><b>Слабому союзу — договариваться.</b> «Если союз маленький и армии нет, договорись с противником»: войска в этом событии гибнут очень быстро.</li>
+</ul></div>
+
+<div class="card"><h3>Советы атакующим</h3><ul>
+  <li>Бить надо всё: и Центр, и башни. На вопрос «только Центр или башни тоже?» отвечают: «всё надо бить».</li>
+  <li>Координаты Центра соперника показаны в самом событии.</li>
+  <li>Можно найти соперника на карте заранее и прилететь к его основной стоянке, а не к Центру.</li>
+</ul></div>
+
+<div class="note"><b>Где игроки противоречат правилам игры.</b> На вопрос, могут ли помогать в обороне те, кто вступил за 20–30 минут до события, в чате ответили «смогут». Правило 12 в нашей игре говорит обратное: меньше 48 часов в союзе — в бою не участвуешь. Верить правилу.</div>
+<div class="note blue"><b>Оговорка.</b> Часть сообщений про башни относится к 3-му сезону, где то же событие называется «Схватка света и ночи». Игроки считают механику одинаковой, но совпадает ли она у нас полностью, покажет только карта и первый бой.</div>
+
+</div></details>
+<details class="ref" open><summary>Чего мы не знаем</summary><div class="in">
+<p class="lead">Проверим в первом бою. Если увидите в игре — пришлите скриншот офицерам.</p>
+<div class="card"><ul>
+  <li>Как именно срабатывает строка «гарнизон каждые 60 сек.»: за каждую минуту стояния или за отправку.</li>
+  <li>Пороги и содержимое сундуков на 2-й и 3-й странице.</li>
+  <li>Сколько прочности снимает одно выбивание гарнизона.</li>
+  <li>Точно ли роли идут по очереди (защита, атака, защита, атака) и по какому признаку игра подбирает соперника.</li>
+  <li>Бесплатны ли перемещения атакующих.</li>
+  <li>Очки за войска других уровней (кнопка с лупой в таблице очков).</li>
+  <li>Есть ли у нашего Центра 3 башни и сколько очков стоит каждая точка.</li>
+  <li>Получает ли защитник «Награду за победу» при успешной обороне.</li>
+  <li>Что делает значок с мечом и щитом справа от времени на вкладке «Обзор».</li>
+  <li>Лучшие герои и состав войск для события.</li>
+</ul></div>
+<div class="note blue">Готовых гайдов на сайтах мы не нашли ни на одном языке; единственный короткий гайд игрока нашёлся в Telegram. Проверены официальный сайт, группа VK, русские и английские вики, форумы на китайском, корейском, японском, немецком и французском, YouTube. Гайд собран из экранов игры, патчноутов и полных расшифровок трёх видео.</div>
+
+</div></details>
+<details class="ref" open><summary>Источники</summary><div class="in">
+<p class="lead">Собрано 29 сентября 2026, дополнено скриншотами из нашей игры.</p>
+<div class="card"><ul class="src">
+  <li><b>Наша игра</b> — 21 скриншот союза [RED] ARMY от 29.09.2026: полные правила, расписание, таблица очков, сундуки, обучение режиму, награды сезона.</li>
+  <li><b>Памятка дипломата союза [SEX]</b> — два сообщения в чате игры, 29.09.2026.</li>
+  <li><b>Telegram-чат «Tiles Survive!»</b> (@TLSSURVIVE) — около 60 сообщений игроков о событии с июля по 29.09.2026, включая гайд игрока @v1tron.</li>
+  <li><b>Telegram-группа «TILES SURVIVE RU COMMUNITY»</b> (@tilessurviveru), тема «Вопрос | Ответ» — обсуждение события 4, 15 и 29 сентября 2026.</li>
+  <li><b>Экраны игры</b> — правила, расписание, очки, сундуки, гарнизон. Прочитаны по кадрам видео 24Gaming4Fun: <a href="https://www.youtube.com/watch?v=IkNa2dX99YU">раунд 1, 22.07.2026</a> и <a href="https://www.youtube.com/watch?v=g-1Yijo0bck">раунд 3, 05.08.2026</a>.</li>
+  <li><b>Патч 2.6.100</b>, 17.09.2026 — правило 48 часов: <a href="https://tilessurvive.com/ru/blog/1179">tilessurvive.com/ru/blog/1179</a>.</li>
+  <li><b>Патч 2.5.800</b>, 06.08.2026 — гарнизон и новые способы получения очков: пост в официальной группе <a href="https://vk.com/tilessurvive">vk.com/tilessurvive</a>. На сайте игры этого пункта нет.</li>
+  <li><b>Tofan Tiles</b>, 13.09.2026 — расстановка Центра союза и защита (арабский): <a href="https://www.youtube.com/watch?v=C0E0raPLZdU">видео</a>. Автор называет событие «Драконьей катастрофой», но по содержанию описывает именно оборону Центра союза.</li>
+  <li><b>Lootbar</b>, 19.09.2026 — пересказ патча 2.6.100: <a href="https://lootbar.gg/blog/ru/tiles-survive-2-6-100-pets-collections-events.html">статья</a>.</li>
+</ul>
+<p class="legend">Названия на других языках: Dragon Isle Clash (англ.), 龍島爭霸 (кит.), 드래곤 섬 쟁탈 (кор.), 竜島戦記 (яп.), Dracheninselkampf (нем.), Conquête de l'Île du Dragon (фр.).</p>
+</div>
+
+</div></details>
+
+</div>
+<script>
+try{const tg=window.Telegram&&Telegram.WebApp;if(tg){tg.ready();tg.expand();}}catch(e){}
+// ссылка на раздел внутри справочника раскрывает его
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',()=>{const t=document.querySelector(a.getAttribute('href'));const d=t&&t.closest('details');if(d)d.open=true;}));
+</script>
+</body>
+</html>

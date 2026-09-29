@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Драконий остров — памятка бойца</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root{
+  --bg:#0d0f14;--bg2:#141822;--card:#1a1f2b;--card2:#202636;--line:#2b3244;
+  --text:#e8ecf4;--muted:#9aa4b8;--accent:#ff6a3d;--accent2:#ffb347;
+  --red:#ff5a5a;--blue:#4fa3ff;--green:#3ddc97;--gold:#ffd166;--purple:#b48cff;
+  --radius:16px;--shadow:0 10px 30px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2)}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px 80px}
+.top{position:sticky;top:0;z-index:20;background:rgba(13,15,20,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top .in{max-width:900px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px}
+.brand{font-weight:800;letter-spacing:.3px}
+.brand small{color:var(--muted);font-weight:500}
+.hero{margin:18px 0 8px;border-radius:24px;overflow:hidden;background:
+  radial-gradient(1200px 400px at 20% -10%,rgba(255,106,61,.35),transparent 60%),
+  radial-gradient(800px 400px at 100% 100%,rgba(79,163,255,.25),transparent 60%),var(--bg2);border:1px solid var(--line);box-shadow:var(--shadow);padding:26px 24px}
+.hero h1{margin:0 0 6px;font-size:30px;line-height:1.15;font-weight:900}
+.hero h1 span{background:linear-gradient(90deg,var(--accent),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{margin:0;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:12px;font-weight:700;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04)}
+.chip.red{border-color:rgba(255,90,90,.5);color:#ffb3b3}.chip.blue{border-color:rgba(79,163,255,.5);color:#b9dbff}
+.chip.gold{border-color:rgba(255,209,102,.5);color:var(--gold)}.chip.green{border-color:rgba(61,220,151,.5);color:#b8f5dd}
+.toc{display:flex;gap:8px;overflow-x:auto;padding:10px 0 4px;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc a{white-space:nowrap;text-decoration:none;color:var(--text);background:var(--card);border:1px solid var(--line);padding:8px 12px;border-radius:12px;font-size:13px;font-weight:600}
+section{margin-top:28px;scroll-margin-top:60px}
+h2{font-size:22px;margin:0 0 4px;display:flex;align-items:center;gap:10px}
+h2 .n{flex:0 0 30px;width:30px;height:30px;border-radius:10px;display:inline-grid;place-items:center;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#111}
+.lead{color:var(--muted);margin:0 0 14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.card+.card{margin-top:12px}
+.two>.card{margin-top:0}
+.card h3{margin:0 0 6px;font-size:16px}
+.card p{margin:6px 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+ul,ol{margin:6px 0 0 20px;padding:0}li{margin:5px 0}
+.tag{display:inline-block;font-size:11px;font-weight:800;padding:2px 8px;border-radius:6px;margin-right:4px;vertical-align:middle;white-space:nowrap}
+.tag.game{background:rgba(61,220,151,.18);color:#8ff0c8}
+.tag.patch{background:rgba(79,163,255,.18);color:#9fcbff}
+.tag.video{background:rgba(180,140,255,.18);color:#d3bdff}
+.tag.player{background:rgba(255,90,90,.18);color:#ff9b9b}
+.tag.guess{background:rgba(255,209,102,.18);color:var(--gold)}
+table{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+td.num,th.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.tbl{overflow-x:auto}
+.timeline{position:relative;padding-left:26px}
+.timeline:before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--accent),var(--blue))}
+.step{position:relative;margin-bottom:14px}
+.step:before{content:"";position:absolute;left:-23px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--accent2);box-shadow:0 0 0 4px rgba(255,179,71,.2)}
+.step b{display:block}
+.step .t{color:var(--gold);font-weight:800;font-variant-numeric:tabular-nums}
+.note{border-left:3px solid var(--accent2);background:rgba(255,179,71,.08);padding:10px 14px;border-radius:0 12px 12px 0;margin:12px 0}
+.note.red{border-color:var(--red);background:rgba(255,90,90,.08)}
+.note.green{border-color:var(--green);background:rgba(61,220,151,.08)}
+.note.blue{border-color:var(--blue);background:rgba(79,163,255,.08)}
+.big{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.big div{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center}
+.big b{display:block;font-size:22px;color:var(--gold);line-height:1.2}
+.big span{font-size:12px;color:var(--muted)}
+/* схема зоны */
+.zone{position:relative;height:260px;border-radius:14px;background:#16301f;border:1px solid var(--line);overflow:hidden;margin:10px 0}
+.zone .gray{position:absolute;left:50%;top:50%;width:150px;height:150px;transform:translate(-50%,-50%) rotate(45deg);background:rgba(150,156,170,.45);border:2px dashed #cfd5e2}
+.zone .center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--blue);color:#06121f;font-weight:900;font-size:12px;padding:6px 8px;border-radius:8px;text-align:center;line-height:1.2}
+.zone .lbl{position:absolute;font-size:12px;font-weight:700;padding:3px 7px;border-radius:6px;background:rgba(0,0,0,.55)}
+.legend{font-size:13px;color:var(--muted)}
+.src li{font-size:13px;color:var(--muted);word-break:break-word}
+.check li{list-style:none;margin-left:-20px;padding-left:26px;position:relative}
+.check li:before{content:"☐";position:absolute;left:4px;color:var(--accent2)}
+details.ref{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin-top:10px;overflow:hidden}
+details.ref>summary{cursor:pointer;padding:14px 16px;font-weight:800;font-size:16px;list-style:none;display:flex;align-items:center;gap:10px}
+details.ref>summary::-webkit-details-marker{display:none}
+details.ref>summary:after{content:"＋";margin-left:auto;color:var(--accent2);font-weight:900}
+details.ref[open]>summary:after{content:"－"}
+details.ref>.in{padding:0 14px 16px}
+details.ref .card{box-shadow:none;background:var(--card2)}
+.part{margin-top:34px;padding-top:6px;border-top:2px solid var(--line)}
+.part>h2{font-size:24px;margin-top:18px}
+.part>h2 .n{width:auto;flex:0 0 auto;padding:0 10px}
+.me{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.me .card{margin-top:0}
+.me h3{font-size:17px}
+.me .who{display:block;color:var(--muted);font-size:13px;margin-bottom:6px}
+.dont li{list-style:none;margin-left:-20px;padding-left:26px;position:relative}
+.dont li:before{content:"✕";position:absolute;left:4px;color:var(--red);font-weight:900}
+.do li{list-style:none;margin-left:-20px;padding-left:26px;position:relative}
+.do li:before{content:"✓";position:absolute;left:4px;color:var(--green);font-weight:900}
+dl.gl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 14px}
+dl.gl dt{font-weight:800;color:var(--gold)}
+dl.gl dd{margin:0}
+@media(max-width:640px){
+  .me{grid-template-columns:1fr}dl.gl{grid-template-columns:1fr;gap:2px}dl.gl dd{margin-bottom:8px}
+  .two{grid-template-columns:1fr}.big{grid-template-columns:repeat(2,1fr)}
+  .hero{padding:20px 16px}.hero h1{font-size:24px}h2{font-size:19px}
+}
+</style>
+</head>
+<body>
+<div class="top"><div class="in"><div class="brand">🐉 Драконий остров <small>· памятка бойца [RED] ARMY</small></div></div></div>
+<div class="wrap">
+
+<div class="hero">
+  <h1>Памятка бойца: <span>драконий остров</span></h1>
+  <p>Мы защищаем свой Центр союза от союза из другого штата. Продержались 30 минут — победили. Не продержались — у нас заберут часть очков сезона.</p>
+  <div class="chips">
+    <span class="chip red">Среда 30.09 · сбор в 21:30 МСК</span>
+    <span class="chip blue">Бой 22:00 — 22:30</span>
+    <span class="chip gold">Мы защищаемся</span>
+  </div>
+</div>
+
+<div class="toc">
+  <a href="#a1">Что это</a><a href="#a2">Словарик</a><a href="#a3">Подготовка</a><a href="#a4">По минутам</a>
+  <a href="#a5">Моя роль</a><a href="#a6">Делай и не делай</a><a href="#a7">Награды</a><a href="#b">Если атакуем</a>
+  <a href="guide.html">Полный гайд →</a>
+</div>
+<!-- ============ A. ПАМЯТКА БОЙЦА ============ -->
+<p class="lead" style="margin-top:14px">Всё, что нужно знать рядовому участнику. Читается за 3 минуты.</p>
+
+<section id="a1"><h2>Что это за событие</h2>
+<div class="card">
+<p>Игра свела нас с союзом из другого штата. В этот раз <b>мы защищаемся, они нападают</b>.</p>
+<p>Они прилетят в наш штат к нашему Центру союза и будут его ломать. У Центра есть <b>прочность — 10 000</b>. Наша задача: чтобы за 30 минут боя она не упала до нуля.</p>
+<p>Центр защищают наши войска, которые стоят внутри него. Пока они там есть, Центр цел. Выбили всех разом — прочность падает.</p>
+<p><b>Проиграем — у союза заберут 7 690 очков сезона</b> из 38 490. От этих очков зависит место союза и награды в конце сезона для каждого из нас.</p>
+</div>
+<div class="note red"><b>Войска гибнут по-настоящему.</b> Это не тренировка. Кто пойдёт в бой с полным госпиталем, потеряет войска навсегда.</div>
+</section>
+
+<section id="a2"><h2>Словарик</h2>
+<div class="card"><dl class="gl">
+  <dt>Центр союза</dt><dd>Здание союза на карте. Его мы защищаем. Наш стоит на X:1005, Y:766.</dd>
+  <dt>Прочность</dt><dd>«Здоровье» Центра, 10 000. Дошла до 0 — мы проиграли, бой сразу заканчивается.</dd>
+  <dt>Гарнизон</dt><dd>Наши отряды внутри Центра. Мест 20, от каждого игрока один отряд.</dd>
+  <dt>Зона обстрела</dt><dd>Квадрат вокруг Центра. В начале события всех оттуда выбрасывает, через 10 минут туда снова можно сесть.</dd>
+  <dt>Телепорт</dt><dd>Перемещение поселения на другое место карты. Тратит предмет «перемещение».</dd>
+  <dt>Сжечь</dt><dd>Атаковать поселение, пока его защита не упадёт до нуля. Сожжённое поселение выбрасывает из зоны.</dd>
+  <dt>Подкрепление</dt><dd>Отправить свой отряд стоять в поселении товарища, чтобы помочь ему отбиться.</dd>
+  <dt>Ралли</dt><dd>Общая атака: один собирает, остальные присоединяются отрядами. Бьёт сильнее одиночных атак.</dd>
+</dl></div>
+</section>
+
+<section id="a3"><h2>Что подготовить заранее</h2>
+<p class="lead">Сделать в среду днём, до 21:00.</p>
+<div class="card"><ul class="check">
+  <li><b>Вылечить всех.</b> Госпиталь должен быть пустым к началу.</li>
+  <li><b>Собрать полные отряды.</b> Натренировать войска, поставить лучших героев.</li>
+  <li><b>Запастись телепортами.</b> Нужно минимум 2–3 штуки.</li>
+  <li><b>Накопить ресурсы на лечение</b>, особенно уголь. Лечиться придётся много.</li>
+  <li><b>Приготовить ускорители лечения.</b> В бою ждать некогда.</li>
+  <li><b>Потратить или спрятать лишние ресурсы.</b> При атаке на поселение их грабят.</li>
+  <li><b>Не можешь прийти — включи щит заранее</b> и не стой рядом с Центром. Возле Центра щит во время события не включается.</li>
+</ul></div>
+<div class="note">Если ты в союзе меньше 48 часов, игра не пустит тебя в бой. Это правило события, обойти его нельзя.</div>
+</section>
+
+<section id="a4"><h2>Что делать по минутам</h2>
+<p class="lead">Время московское. Команды офицеров в чате союза важнее этой памятки.</p>
+<div class="card"><div class="timeline">
+  <div class="step"><span class="t">21:25</span><b>Зайди в игру</b>Открой чат союза. Проверь, что госпиталь пуст и отряды полные.</div>
+  <div class="step"><span class="t">21:30 · началась подготовка</span><b>Не пугайся: тебя выбросит</b>Если твоё поселение стояло рядом с Центром, игра сама перенесёт его в другое место. Урона не будет. Следующие 10 минут сесть возле Центра нельзя — не трать телепорты.</div>
+  <div class="step"><span class="t">21:40 · зона открылась</span><b>Телепортируйся к Центру</b>Садись так близко к Центру, как получится. Сильные игроки занимают клетки вплотную к Центру, остальные — вокруг них. <b>Между своим поселением и соседним оставляй зазор в 1 клетку</b>, не больше. Враг в такую щель сесть не сможет, а мы закроем больше места.</div>
+  <div class="step"><span class="t">21:40 — 22:00</span><b>Держи позицию</b>Враг тоже прилетит и начнёт нападать на поселения. Если рядом сел враг слабее тебя — сожги его, его выбросит. Если напали на соседа — отправь ему подкрепление. Сам на сильных не лезь.</div>
+  <div class="step"><span class="t">21:58</span><b>Включи усиления</b>Усиления атаки и защиты войск. Навык союза включат офицеры.</div>
+  <div class="step"><span class="t">22:00 · начался бой</span><b>Отряд в Центр</b>Нажми на Центр союза → «Гарнизон» → отправь свой самый сильный отряд. Мест 20. Не попал — не страшно, попадёшь, когда место освободится.</div>
+  <div class="step"><span class="t">22:00 — 22:30</span><b>Круг: стоишь → лечишься → возвращаешься</b>Твой отряд выбили или от него осталась треть — лечи войска ускорителями, добирай отряд до полного и отправляй снова. И так до конца.</div>
+  <div class="step"><span class="t">22:30</span><b>Конец</b>Забери сундуки на вкладке «Отчёты» в событии. Вылечи оставшихся.</div>
+</div></div>
+<div class="note green"><b>Главное правило.</b> Центр не должен пустовать ни секунды. Лучше десять средних отрядов внутри, чем ноль в ожидании одного сильного.</div>
+</section>
+
+<div class="card" style="margin-top:12px"><h3>Как расставляться вокруг Центра</h3>
+<div class="zone" style="height:230px">
+  <div class="center" style="background:var(--blue)">ЦЕНТР</div>
+  <div class="lbl" style="left:50%;top:22%;transform:translateX(-50%);color:#8ff0c8">наш</div>
+  <div class="lbl" style="left:50%;top:70%;transform:translateX(-50%);color:#8ff0c8">наш</div>
+  <div class="lbl" style="left:32%;top:46%;transform:translateX(-50%);color:#8ff0c8">наш</div>
+  <div class="lbl" style="left:68%;top:46%;transform:translateX(-50%);color:#8ff0c8">наш</div>
+  <div class="lbl" style="left:14%;top:46%;transform:translateX(-50%);color:#8ff0c8">наш</div>
+  <div class="lbl" style="left:86%;top:46%;transform:translateX(-50%);color:#8ff0c8">наш</div>
+  <div class="lbl" style="left:32%;top:14%;transform:translateX(-50%);color:#8ff0c8">наш</div>
+  <div class="lbl" style="left:68%;top:14%;transform:translateX(-50%);color:#8ff0c8">наш</div>
+  <div class="lbl" style="left:32%;top:80%;transform:translateX(-50%);color:#8ff0c8">наш</div>
+  <div class="lbl" style="left:68%;top:80%;transform:translateX(-50%);color:#8ff0c8">наш</div>
+  <div class="lbl" style="right:8px;bottom:8px;color:#ff9b9b">враг садится только снаружи</div>
+</div>
+<ul>
+  <li><b>Зазор в 1 клетку</b> между нашими поселениями. Поселение занимает больше одной клетки, поэтому в такую щель враг не влезет.</li>
+  <li><b>Не вплотную друг к другу:</b> так мы теми же силами закрываем больше места вокруг Центра.</li>
+  <li><b>Не шире одной клетки:</b> в дыру в две клетки и больше враг сядет прямо среди нас.</li>
+  <li>Если видишь такую дыру рядом — напиши в чат союза или сам пересядь так, чтобы её закрыть.</li>
+</ul>
+<p class="legend">Совет «оставлять зазор в 1 клетку» дали игроки, которые уже защищались. Почему он работает, они не объясняют; объяснение выше — наше. Схема условная.</p></div>
+
+<section id="a5"><h2>Моя роль: зависит от силы</h2>
+<p class="lead">Найди себя и делай своё. Офицеры могут назначить иначе.</p>
+<div class="me">
+<div class="card"><h3>💪 Сильный</h3><span class="who">Примерно первые 20 по мощи в союзе</span><ul>
+  <li>Сидишь вплотную к Центру.</li>
+  <li>Твой главный отряд — в гарнизоне с первой секунды боя.</li>
+  <li>Остальными отрядами жжёшь врагов, севших рядом.</li>
+  <li>Выбили — лечишься и сразу назад.</li>
+</ul></div>
+<div class="card"><h3>🛡 Средний</h3><span class="who">Следующие по силе</span><ul>
+  <li>Сидишь во втором ряду от Центра.</li>
+  <li>Ты — замена: заходишь в гарнизон, как только освободилось место.</li>
+  <li>Держишь отряд в поселении сильного соседа как подкрепление.</li>
+  <li>Жжёшь только тех, кто слабее тебя.</li>
+</ul></div>
+<div class="card"><h3>🌱 Слабый</h3><span class="who">Небольшая мощь, мало войск</span><ul>
+  <li>Занимаешь клетку в зоне, чтобы её не занял враг.</li>
+  <li>Войска отправляешь подкреплением к сильному соседу.</li>
+  <li>Сам ни на кого не нападаешь.</li>
+  <li>Когда враг выдохнется — заходи в гарнизон, там идут очки.</li>
+</ul></div>
+</div>
+<div class="note"><b>Если у нашего Центра есть башни.</b> У некоторых союзов рядом с Центром стоят ещё 3 башни, и защищать надо все четыре здания. Есть ли они у нас, офицеры проверят и скажут, кто идёт в Центр, а кто в башни. Правило то же: один твой отряд в одно здание.</div>
+</section>
+
+<section id="a6"><h2>Делай и не делай</h2>
+<div class="two">
+<div class="card"><h3>Делай</h3><ul class="do">
+  <li>Приходи к 21:25, а не к 22:00.</li>
+  <li>Отправляй в гарнизон только полный отряд.</li>
+  <li>Можно послать в Центр сразу несколько отрядов: встанет первый дошедший, остальные сами вернутся.</li>
+  <li>Следи за госпиталем: заполнился — лечи, потом в бой.</li>
+  <li>Оставляй между своим поселением и соседним зазор в 1 клетку.</li>
+  <li>Помогай соседям подкреплением.</li>
+  <li>Читай чат союза и слушай офицеров.</li>
+</ul></div>
+<div class="card"><h3>Не делай</h3><ul class="dont">
+  <li>Не иди в бой с полным госпиталем — лишние раненые погибнут.</li>
+  <li>Не нападай в одиночку на тех, кто сильнее.</li>
+  <li>Не рассчитывай на щит возле Центра — он там не включится.</li>
+  <li>Не трать телепорты до 21:40.</li>
+  <li>Не уходи с позиции гоняться за врагом по карте.</li>
+  <li>Не оставляй рядом с собой дыру в 2 клетки и больше — туда сядет враг.</li>
+  <li>Не жги ускорители «ради очков» — только на настоящее лечение.</li>
+</ul></div>
+</div>
+</section>
+
+<section id="a7"><h2>Что я получу</h2>
+<div class="card">
+<p><b>Личные сундуки.</b> За бой ты набираешь личные очки и открываешь сундуки. Первые три — на 5, 10 и 15 миллионов очков, всего сундуков девять.</p>
+<div class="tbl"><table>
+<tr><th>За что дают очки</th><th class="num">Сколько</th></tr>
+<tr><td>Твой отряд стоит в гарнизоне, за каждую минуту</td><td class="num">600 000</td></tr>
+<tr><td>Убил врага в здании союза</td><td class="num">110 за бойца</td></tr>
+<tr><td>Убил врага в поле</td><td class="num">66 за бойца</td></tr>
+<tr><td>Твои раненые и погибшие</td><td class="num">44–66 за бойца</td></tr>
+<tr><td>Минута ускорителей лечения или обучения</td><td class="num">240</td></tr>
+</table></div>
+<p class="legend">Цифры за бойцов — для войск 10-го уровня. Строку про гарнизон мы понимаем как «600 000 в минуту», но игра формулирует её нечётко, проверим в бою.</p>
+<p><b>Проще всего набрать очки в гарнизоне:</b> 9 минут — это первый сундук, 17 минут — второй, 25 — третий. Сильные бойцы набирают ещё больше на убийствах.</p>
+<p><b>Награда союзу.</b> Победим — сохраним все очки сезона. Проиграем — потеряем 7 690. В событии есть ещё «Награда за победу», но дают ли её защитнику, узнаем после боя.</p>
+</div>
+</section>
+
+<div class="note blue" style="margin-top:18px"><b>Откуда эта тактика.</b> Она собрана из правил игры и опыта союзов, которые уже отыграли событие. Сами мы его ещё не играли. После первого боя памятку поправим по тому, что увидим.</div>
+
+<!-- ============ B. ЕСЛИ АТАКУЕМ ============ -->
+<div class="part" id="b"><h2><span class="n">Если мы атакуем</span></h2>
+<p class="lead">Роли чередуются. Следующий раунд, скорее всего 7 октября, мы будем нападать. Роль видна в событии на вкладке «Обзор».</p></div>
+
+<section id="b1"><h2>Памятка бойца в атаке</h2>
+<div class="card"><div class="timeline">
+  <div class="step"><span class="t">Начало подготовки</span><b>Лети в штат соперника</b>Координаты его Центра союза показаны в событии. Сядь недалеко от серой зоны, но не в неё — первые 10 минут туда не пускает.</div>
+  <div class="step"><span class="t">10-я минута подготовки</span><b>Рывок к Центру</b>Зона открылась. Садись как можно ближе к Центру врага, раньше его защитников.</div>
+  <div class="step"><span class="t">До начала боя</span><b>Расчисти место</b>Сильные жгут поселения защитников рядом с Центром. Остальные держатся рядом и не лезут на сильных.</div>
+  <div class="step"><span class="t">Бой, 30 минут</span><b>Бей Центр вместе</b>Присоединяйся к ралли, которые собирают сильнейшие. Одиночные атаки на сильный гарнизон только губят войска.</div>
+  <div class="step"><span class="t">Весь бой</span><b>Лечись между заходами</b>Госпиталь заполнился — остановись и вылечись. Сил должно хватить на все 30 минут.</div>
+</div></div>
+<div class="two">
+<div class="card"><h3>Делай</h3><ul class="do">
+  <li>Ходи в ралли, а не поодиночке.</li>
+  <li>Бей все здания союза врага, какие есть.</li>
+  <li>Тебя сожгли и выбросили — возвращайся, прыгать можно раз в 2 минуты.</li>
+  <li>Оставь часть войск дома: щит возле чужого Центра не включить.</li>
+</ul></div>
+<div class="card"><h3>Не делай</h3><ul class="dont">
+  <li>Не трать войска в подготовке — Центр тогда бить нельзя.</li>
+  <li>Не атакуй с полным госпиталем.</li>
+  <li>Не выкладывайся за первые 10 минут боя.</li>
+</ul></div>
+</div>
+<p class="legend">В атаке очки дают за каждую снятую единицу прочности здания — 2 000 тому, кто её снял.</p>
+</section>
+
+
+<div class="card" style="margin-top:24px;text-align:center">
+  <p>Правила целиком, все цифры, разбор чужих боёв и план для офицеров:</p>
+  <p><a href="guide.html" style="font-weight:800;font-size:16px">📚 Открыть полный гайд</a></p>
+</div>
+
+</div>
+<script>
+try{const tg=window.Telegram&&Telegram.WebApp;if(tg){tg.ready();tg.expand();}}catch(e){}
+</script>
+</body>
+</html>
