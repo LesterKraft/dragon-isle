@@ -63,8 +63,11 @@ ul{margin:6px 0 0 18px;padding:0}li{margin:3px 0}
 .dir.war{color:#ff9b9b}.dir.buff{color:#8ff0c8}.dir.dip{color:#9fcbff}.dir.care{color:#d3bdff}.dir.pr{color:#ffb3d2}
 
 /* уровень 1: лидер */
-.lvl1{display:flex;justify-content:center}
-.lvl1 .p{width:min(100%,420px)}
+.lvl1{display:flex;justify-content:center;align-items:center;gap:0}
+.lvl1 .lead-p{width:min(100%,400px)}
+.lvl1 .helper{width:min(100%,300px)}
+.hline{width:34px;height:2px;background:var(--line);flex:0 0 auto}
+@media(max-width:820px){.lvl1{flex-direction:column-reverse;gap:10px}.hline{width:2px;height:18px}}
 /* соединитель вниз */
 .down{width:2px;height:26px;background:var(--line);margin:0 auto}
 .bar{height:2px;background:var(--line);margin:0 12.5%}
@@ -107,10 +110,18 @@ ul{margin:6px 0 0 18px;padding:0}li{margin:3px 0}
 </div>
 
 <section id="scheme"><h2>Схема</h2>
-<p class="lead">Сверху лидер, под ним четыре направления: в каждом старший и его помощники.</p>
+<p class="lead">Сверху лидер и его помощница. Ниже — R4 со званиями, каждый ведёт своё направление, у двоих есть помощники.</p>
 
 <div class="org">
   <div class="lvl1">
+    <div class="p b-buff helper">
+      <div class="nm"><span class="ico">🐈‍⬛</span> Кошка <span class="rk">R4</span></div>
+      <div class="ti">Помощница лидера · 226 M</div>
+      <ul class="du">
+        <li>Бафы союза: какой включить и когда</li>
+      </ul>
+    </div>
+    <div class="hline"></div>
     <div class="p lead-p">
       <div class="nm"><span class="ico">👑</span> Lester Kraft <span class="rk r5">R5</span></div>
       <div class="ti">Лидер союза · 136 M</div>
@@ -124,17 +135,6 @@ ul{margin:6px 0 0 18px;padding:0}li{margin:3px 0}
   <div class="bar"></div>
 
   <div class="lvl2">
-
-    <div class="col">
-      <div class="dir buff">🟢 Бафы</div>
-      <div class="p b-buff">
-        <div class="nm"><span class="ico">🐈‍⬛</span> Кошка <span class="rk">R4</span></div>
-        <div class="ti">Помощница лидера · 226 M</div>
-        <ul class="du">
-          <li>Бафы союза: какой включить и когда</li>
-        </ul>
-      </div>
-    </div>
 
     <div class="col">
       <div class="dir war">🔴 Война</div>
@@ -192,21 +192,24 @@ ul{margin:6px 0 0 18px;padding:0}li{margin:3px 0}
             <li>Объявления и информирование</li>
             <li>Запускает баф на сбор</li>
             <li>Ведёт тематические группы</li>
+            <li>Помогает также Мире</li>
           </ul>
         </div>
       </div>
-      <div class="sub">
-        <div class="p b-pr">
-          <div class="nm"><span class="ico">💬</span> Мира <span class="rk">R4</span></div>
-          <div class="ti">Обаятель · 144 M</div>
-          <ul class="du">
-            <li>Общение во всех чатах и в штате</li>
-            <li>Показывает нашу активность другим союзам</li>
-            <li>Зовёт новых игроков в союз</li>
-          </ul>
-        </div>
-        <div class="link">Мире помогает Kipina</div>
+    </div>
+
+    <div class="col">
+      <div class="dir pr">🩷 Связи и набор</div>
+      <div class="p b-pr">
+        <div class="nm"><span class="ico">💬</span> Мира <span class="rk">R4</span></div>
+        <div class="ti">Обаятель · 144 M</div>
+        <ul class="du">
+          <li>Общение во всех чатах и в штате</li>
+          <li>Показывает нашу активность другим союзам</li>
+          <li>Зовёт новых игроков в союз</li>
+        </ul>
       </div>
+      <div class="link">Помогает Kipina</div>
     </div>
 
   </div>
@@ -243,7 +246,7 @@ ul{margin:6px 0 0 18px;padding:0}li{margin:3px 0}
 <tr><td><b>Sproot</b></td><td>R4, Дипломат</td><td>Договорённости по ВС, связь с другими союзами</td><td>Lester Kraft</td></tr>
 <tr><td><b>lumi</b></td><td>R4, Стюард</td><td>Настроение в союзе, ответы на вопросы, запуск Зльва</td><td>Lester Kraft</td></tr>
 <tr><td><b>Kipina</b></td><td>R4</td><td>Объявления, баф на сбор, тематические группы</td><td>lumi и Мира</td></tr>
-<tr><td><b>Мира</b></td><td>R4, Обаятель</td><td>Общение в чатах и штате, репутация союза, набор новичков</td><td>Lester Kraft</td></tr>
+<tr><td><b>Мира</b></td><td>R4, Обаятель</td><td>Общение в чатах и штате, репутация союза, набор новичков</td><td>Lester Kraft; ей помогает Kipina</td></tr>
 </table></div>
 <p class="legend">Astarda тоже R4, её задачи на схему пока не внесены.</p>
 </section>
