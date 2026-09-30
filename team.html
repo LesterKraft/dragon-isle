@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Структура союза RED ARMY</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root{
+  --bg:#0d0f14;--bg2:#141822;--card:#1a1f2b;--card2:#202636;--line:#2b3244;
+  --text:#e8ecf4;--muted:#9aa4b8;--accent:#ff6a3d;--accent2:#ffb347;
+  --red:#ff5a5a;--blue:#4fa3ff;--green:#3ddc97;--gold:#ffd166;--purple:#b48cff;--pink:#ff7ab6;
+  --radius:16px;--shadow:0 10px 30px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2)}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px 80px}
+.top{position:sticky;top:0;z-index:20;background:rgba(13,15,20,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top .in{max-width:980px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px}
+.brand{font-weight:800}
+.brand small{color:var(--muted);font-weight:500}
+.hero{margin:18px 0 8px;border-radius:24px;background:
+  radial-gradient(1200px 400px at 20% -10%,rgba(255,106,61,.35),transparent 60%),
+  radial-gradient(800px 400px at 100% 100%,rgba(79,163,255,.25),transparent 60%),var(--bg2);border:1px solid var(--line);box-shadow:var(--shadow);padding:24px}
+.hero h1{margin:0 0 6px;font-size:28px;line-height:1.15;font-weight:900}
+.hero h1 span{background:linear-gradient(90deg,var(--accent),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{margin:0;color:var(--muted)}
+.toc{display:flex;gap:8px;overflow-x:auto;padding:10px 0 4px;scrollbar-width:none}
+.toc::-webkit-scrollbar{display:none}
+.toc a{white-space:nowrap;text-decoration:none;color:var(--text);background:var(--card);border:1px solid var(--line);padding:8px 12px;border-radius:12px;font-size:13px;font-weight:600}
+section{margin-top:28px;scroll-margin-top:60px}
+h2{font-size:22px;margin:0 0 4px}
+.lead{color:var(--muted);margin:0 0 14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+.tbl{overflow-x:auto}
+ul{margin:6px 0 0 18px;padding:0}li{margin:3px 0}
+.legend{font-size:13px;color:var(--muted)}
+
+/* ===== схема ===== */
+.org{position:relative;margin-top:14px}
+.p{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;position:relative;box-shadow:var(--shadow)}
+.p .nm{font-weight:900;font-size:17px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.p .ti{font-size:12px;color:var(--muted);margin-top:2px}
+.p .du{margin:8px 0 0 16px;font-size:14px}
+.p .du li{margin:3px 0}
+.rk{font-size:11px;font-weight:900;padding:2px 7px;border-radius:6px;background:rgba(255,209,102,.18);color:var(--gold)}
+.rk.r5{background:linear-gradient(135deg,var(--accent),var(--gold));color:#111}
+.ico{font-size:22px;line-height:1}
+.p.lead-p{border-color:rgba(255,179,71,.7);background:linear-gradient(180deg,rgba(255,106,61,.12),var(--card))}
+.p.vac{border-style:dashed;color:var(--muted);background:transparent;box-shadow:none}
+.p.vac .nm{color:var(--muted)}
+/* цвета направлений */
+.b-war{border-top:4px solid var(--red)}
+.b-buff{border-top:4px solid var(--green)}
+.b-dip{border-top:4px solid var(--blue)}
+.b-care{border-top:4px solid var(--purple)}
+.b-pr{border-top:4px solid var(--pink)}
+.dir{font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin:0 0 8px;padding-left:2px}
+.dir.war{color:#ff9b9b}.dir.buff{color:#8ff0c8}.dir.dip{color:#9fcbff}.dir.care{color:#d3bdff}.dir.pr{color:#ffb3d2}
+
+/* уровень 1: лидер */
+.lvl1{display:flex;justify-content:center}
+.lvl1 .p{width:min(100%,420px)}
+/* соединитель вниз */
+.down{width:2px;height:26px;background:var(--line);margin:0 auto}
+.bar{height:2px;background:var(--line);margin:0 12.5%}
+/* уровень 2: направления */
+.lvl2{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;align-items:start}
+.col{position:relative;padding-top:26px}
+.col:before{content:"";position:absolute;left:50%;top:0;width:2px;height:26px;background:var(--line)}
+.sub{margin-top:14px;position:relative;padding-top:14px}
+.sub:before{content:"";position:absolute;left:50%;top:0;width:2px;height:14px;background:var(--line)}
+.sub .p{font-size:14px}
+.sub .p .nm{font-size:15px}
+.helpnote{font-size:11px;color:var(--muted);text-align:center;margin:8px 0 -6px}
+/* горизонтальная связь Мира–Kipina */
+.link{font-size:12px;color:var(--muted);text-align:center;margin-top:8px;padding:6px;border:1px dashed var(--line);border-radius:10px}
+
+.q{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.q .card{margin:0}
+.q h3{margin:0 0 6px;font-size:16px}
+.who{display:inline-block;font-weight:800;color:var(--gold)}
+@media(max-width:820px){
+  .lvl2{grid-template-columns:1fr 1fr}.bar{display:none}.col{padding-top:0}.col:before{display:none}.down{display:none}
+  .lvl1{margin-bottom:14px}
+}
+@media(max-width:560px){
+  .lvl2{grid-template-columns:1fr}.q{grid-template-columns:1fr}.hero{padding:18px}.hero h1{font-size:23px}
+}
+</style>
+</head>
+<body>
+<div class="top"><div class="in"><div class="brand">🦁 [RED] ARMY <small>· кто за что отвечает</small></div></div></div>
+<div class="wrap">
+
+<div class="hero">
+  <h1>Структура союза <span>[RED] ARMY</span></h1>
+  <p>Кто чем занимается и к кому идти с вопросом. Штат #750, 59 участников. Обновлено 30 сентября 2026.</p>
+</div>
+
+<div class="toc">
+  <a href="#scheme">Схема</a><a href="#ask">К кому обращаться</a><a href="#roles">Роли подробно</a><a href="#events">События и ответственные</a>
+</div>
+
+<section id="scheme"><h2>Схема</h2>
+<p class="lead">Пять направлений. Сверху лидер, под каждым направлением — старший и его помощники.</p>
+
+<div class="org">
+  <div class="lvl1">
+    <div class="p lead-p">
+      <div class="nm"><span class="ico">👑</span> Lester Kraft <span class="rk r5">R5</span></div>
+      <div class="ti">Лидер союза · 136 M</div>
+      <ul class="du">
+        <li>Захваты: города, бастионы, логова</li>
+        <li>Общее руководство и решения по союзу</li>
+      </ul>
+    </div>
+  </div>
+  <div class="down"></div>
+  <div class="bar"></div>
+
+  <div class="lvl2">
+
+    <div class="col">
+      <div class="dir buff">🟢 Бафы</div>
+      <div class="p b-buff">
+        <div class="nm"><span class="ico">🐈‍⬛</span> Кошка <span class="rk">R4</span></div>
+        <div class="ti">Помощница лидера · 226 M</div>
+        <ul class="du">
+          <li>Бафы союза: какой включить и когда</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="dir war">🔴 Война</div>
+      <div class="p b-war">
+        <div class="nm"><span class="ico">⚔️</span> _Lili_ <span class="rk">R4</span></div>
+        <div class="ti">Бог войны · 232 M</div>
+        <ul class="du">
+          <li>Аркадия: план, сбор, ралли</li>
+          <li>Помогает по нефти</li>
+        </ul>
+      </div>
+      <div class="sub">
+        <div class="p b-war">
+          <div class="nm"><span class="ico">🛢</span> ✧NOiR✧ <span class="rk">R4</span></div>
+          <div class="ti">Помощник · 116 M</div>
+          <ul class="du"><li>Нефть: битва за нефть</li></ul>
+        </div>
+      </div>
+      <div class="sub">
+        <div class="p vac">
+          <div class="nm"><span class="ico">🌊</span> Вакансия</div>
+          <div class="ti">Помощник</div>
+          <ul class="du"><li>Рейд на резервуар</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="dir dip">🔵 Дипломатия</div>
+      <div class="p b-dip">
+        <div class="nm"><span class="ico">🤝</span> Sproot <span class="rk">R4</span></div>
+        <div class="ti">Дипломат · 140 M</div>
+        <ul class="du">
+          <li>Договаривается с соперником по ВС</li>
+          <li>Переговоры с другими союзами</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="dir care">🟣 Союз и люди</div>
+      <div class="p b-care">
+        <div class="nm"><span class="ico">🧭</span> lumi <span class="rk">R4</span></div>
+        <div class="ti">Стюард · 170 M</div>
+        <ul class="du">
+          <li>Настроение в союзе, отвечает на вопросы</li>
+          <li>Запускает «Погоню за Зльвом»</li>
+        </ul>
+      </div>
+      <div class="sub">
+        <div class="p b-care">
+          <div class="nm"><span class="ico">📣</span> Kipina <span class="rk">R4</span></div>
+          <div class="ti">Помощница · 135 M</div>
+          <ul class="du">
+            <li>Объявления и информирование</li>
+            <li>Запускает баф на сбор</li>
+            <li>Ведёт тематические группы</li>
+          </ul>
+        </div>
+      </div>
+      <div class="sub">
+        <div class="p b-pr">
+          <div class="nm"><span class="ico">💬</span> Мира <span class="rk">R4</span></div>
+          <div class="ti">Обаятель · 144 M</div>
+          <ul class="du">
+            <li>Общение во всех чатах и в штате</li>
+            <li>Показывает нашу активность другим союзам</li>
+            <li>Зовёт новых игроков в союз</li>
+          </ul>
+        </div>
+        <div class="link">Мире помогает Kipina</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<p class="legend" style="margin-top:12px">Мощь указана по экрану «Участники союза» на 30.09.2026. Пунктиром — место, на которое ищем человека.</p>
+</section>
+
+<section id="ask"><h2>К кому обращаться</h2>
+<p class="lead">Найди свой вопрос и пиши нужному человеку. Не знаешь, к кому, — пиши стюарду lumi.</p>
+<div class="q">
+  <div class="card"><h3>🏰 Захваты, города, бастионы</h3><span class="who">Lester Kraft</span></div>
+  <div class="card"><h3>✨ Бафы союза</h3><span class="who">Кошка</span></div>
+  <div class="card"><h3>🏟 Аркадия</h3><span class="who">_Lili_</span></div>
+  <div class="card"><h3>🛢 Битва за нефть</h3><span class="who">✧NOiR✧</span> · страхует _Lili_</div>
+  <div class="card"><h3>🌊 Рейд на резервуар</h3><span class="who">пока _Lili_</span> · ищем ответственного</div>
+  <div class="card"><h3>⚔️ Дуэль союзов (ВС), договорённости с соперником</h3><span class="who">Sproot</span></div>
+  <div class="card"><h3>🤝 Другие союзы, конфликты, союзничество</h3><span class="who">Sproot</span></div>
+  <div class="card"><h3>❓ Любой вопрос по игре и союзу</h3><span class="who">lumi</span></div>
+  <div class="card"><h3>🦌 Погоня за Зльвом</h3><span class="who">lumi</span></div>
+  <div class="card"><h3>📣 Объявления, баф на сбор, тематические группы</h3><span class="who">Kipina</span></div>
+  <div class="card"><h3>👋 Привести друга в союз, общение в штате</h3><span class="who">Мира</span> · помогает Kipina</div>
+  <div class="card"><h3>😕 Обиды, споры, настроение</h3><span class="who">lumi</span></div>
+</div>
+</section>
+
+<section id="roles"><h2>Роли подробно</h2>
+<div class="card tbl"><table>
+<tr><th>Кто</th><th>Ранг и звание</th><th>За что отвечает</th><th>Кому помогает</th></tr>
+<tr><td><b>Lester Kraft</b></td><td>R5, лидер</td><td>Захваты, общее руководство</td><td>—</td></tr>
+<tr><td><b>Кошка</b></td><td>R4</td><td>Бафы союза</td><td>Lester Kraft</td></tr>
+<tr><td><b>_Lili_</b></td><td>R4, Бог войны</td><td>Аркадия; помощь по нефти</td><td>Lester Kraft</td></tr>
+<tr><td><b>✧NOiR✧</b></td><td>R4</td><td>Нефть</td><td>_Lili_</td></tr>
+<tr><td><i>вакансия</i></td><td>—</td><td>Рейд на резервуар</td><td>_Lili_</td></tr>
+<tr><td><b>Sproot</b></td><td>R4, Дипломат</td><td>Договорённости по ВС, связь с другими союзами</td><td>Lester Kraft</td></tr>
+<tr><td><b>lumi</b></td><td>R4, Стюард</td><td>Настроение в союзе, ответы на вопросы, запуск Зльва</td><td>Lester Kraft</td></tr>
+<tr><td><b>Kipina</b></td><td>R4</td><td>Объявления, баф на сбор, тематические группы</td><td>lumi и Мира</td></tr>
+<tr><td><b>Мира</b></td><td>R4, Обаятель</td><td>Общение в чатах и штате, репутация союза, набор новичков</td><td>Lester Kraft</td></tr>
+</table></div>
+<p class="legend">Astarda тоже R4, её задачи на схему пока не внесены.</p>
+</section>
+
+<section id="events"><h2>События и ответственные</h2>
+<div class="card tbl"><table>
+<tr><th>Событие</th><th>Ведёт</th><th>Помогает</th></tr>
+<tr><td>Захват городов, бастионов, логов</td><td>Lester Kraft</td><td>—</td></tr>
+<tr><td>Аркадия</td><td>_Lili_</td><td>—</td></tr>
+<tr><td>Битва за нефть</td><td>✧NOiR✧</td><td>_Lili_</td></tr>
+<tr><td>Рейд на резервуар</td><td><i>ищем</i></td><td>_Lili_</td></tr>
+<tr><td>Дуэль союзов (ВС)</td><td>Sproot — переговоры</td><td>—</td></tr>
+<tr><td>Погоня за Зльвом</td><td>lumi</td><td>—</td></tr>
+<tr><td>Баф на сбор</td><td>Kipina</td><td>Кошка</td></tr>
+<tr><td>Бафы союза</td><td>Кошка</td><td>—</td></tr>
+</table></div>
+</section>
+
+</div>
+<script>
+try{const tg=window.Telegram&&Telegram.WebApp;if(tg){tg.ready();tg.expand();}}catch(e){}
+</script>
+</body>
+</html>
